@@ -1,17 +1,18 @@
-import { Route, Routes } from "react-router"
-import Template from "../Template"
-import Button from "./components/atom/Button"
-import Testing from "./pages/Testing"
+import { Route, Routes } from "react-router";
+import Template from "../Template";
+import Button from "./components/atom/ButtonExample";
+import Testing from "./pages/Testing";
+import Coret from "./pages/Coret";
 
 function App() {
-
   return (
-   <div>
+    <div>
       <Routes>
-        <Route path="/testing" element={<Testing />}/>
+        <Route path="/testing" element={<Testing />} />
+        <Route path="/coret" element={<Coret />} />
       </Routes>
-   </div>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
