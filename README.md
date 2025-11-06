@@ -70,22 +70,12 @@ npm run dev
 
 ---
 
-## 🔐 Akun Demo
-
-| Peran | Email | Password |
-|--------|--------|-----------|
-| Customer | user@gmail.com | user123 |
-| Admin | admin@gmail.com | admin123 |
-| Owner | bos@gmail.com | bos123 |
-
----
-
 ## 👨‍💻 Tim Pengembang
 
-- [Dimas Brotowali](https://github.com/yourgithub)
-- [Haikal](https://github.com/haikalgithub)
-- [Raka](https://github.com/rakagithub)
-- [Fahriza](https://github.com/fahrizagithub)
+- [Dimas Brotowali](https://github.com/dimxdev)
+- [Haikal](https://github.com/haikalananta25)
+- [Raka](https://github.com/rakaiky)
+- [Fahriza](https://github.com/fahrizaputra16)
 
 ---
 
