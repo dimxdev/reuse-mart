@@ -1,20 +1,18 @@
-// lLyer yg bertujuan untuk handle business logic
-
 import {
   deleteAnggota,
   editAnggota,
-  findAnggota,
+  findAllAnggota,
   findAnggotaById,
   insertAnggota,
-} from "./kelompok.repository.js";
+} from "../repositories/kelompok.repository.js";
 
-const getAllAnggota = async () => {
-  const anggotaKelompok = await findAnggota();
+const getAllAnggotaService = async () => {
+  const anggotaKelompok = await findAllAnggota();
 
   return anggotaKelompok;
 };
 
-const getAnggotaById = async (anggotaId) => {
+const getAnggotaByIdService = async (anggotaId) => {
   const anggota = await findAnggotaById(anggotaId);
 
   if (!anggota) {
@@ -24,7 +22,7 @@ const getAnggotaById = async (anggotaId) => {
   return anggota;
 };
 
-const createAnggota = async (anggotaData) => {
+const createAnggotaService = async (anggotaData) => {
   if (!anggotaData.nama || !anggotaData.nim) {
     throw new Error("data yang dimasukkan tidak lengkap");
   }
@@ -35,16 +33,16 @@ const createAnggota = async (anggotaData) => {
 
   const anggota = await insertAnggota(anggotaData);
 
-  return anggota;
+  return anggota; 
 };
 
-const deleteAnggotaById = async (anggotaId) => {
-  await getAnggotaById(anggotaId);
+const deleteAnggotaByIdService = async (anggotaId) => {
+  await getAnggotaByIdService(anggotaId);
   await deleteAnggota(anggotaId);
 };
 
-const editAnggotaById = async (anggotaId, anggotaData) => {
-  await getAnggotaById(anggotaId);
+const editAnggotaByIdService = async (anggotaId, anggotaData) => {
+  await getAnggotaByIdServices(anggotaId);
 
   if (String(anggotaData.nim).length !== 10) {
     throw new Error("NIM harus 10 karakter");
@@ -56,9 +54,9 @@ const editAnggotaById = async (anggotaId, anggotaData) => {
 };
 
 export {
-  getAllAnggota,
-  getAnggotaById,
-  createAnggota,
-  deleteAnggotaById,
-  editAnggotaById,
+  getAllAnggotaService,
+  getAnggotaByIdService,
+  createAnggotaService,
+  deleteAnggotaByIdService,
+  editAnggotaByIdService,
 };

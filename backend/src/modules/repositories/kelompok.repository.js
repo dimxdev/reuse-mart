@@ -1,9 +1,6 @@
-// Berkomunikasi dengan database
-// Supaya kalo mau ganti2 ORM tinggal edit di file ini aja
+import prisma from "../../db/index.js";
 
-import prisma from "../db/index.js";
-
-const findAnggota = async () => {
+const findAllAnggota = async () => {
   const anggota = await prisma.anggotaKelompok.findMany();
 
   return anggota;
@@ -53,7 +50,7 @@ const editAnggota = async (anggotaId, anggotaData) => {
 };
 
 export {
-  findAnggota,
+  findAllAnggota,
   findAnggotaById,
   insertAnggota,
   deleteAnggota,

@@ -19,3 +19,94 @@ model AnggotaKelompok {
   nim          String    @unique
   createAt     DateTime  @default(now())
 }
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  password   String
+  role       Role     @default(customer)
+  created_at DateTime @default(now())
+
+  orders Order[]
+  carts  Cart[]
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  created_at  DateTime  @default(now())
+
+  products Product[]
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  price       Int
+  stock       Int
+  description String?
+  image_url   String?
+  created_at  DateTime  @default(now())
+
+  category_id Int
+  category    Category  @relation(fields: [category_id], references: [id])
+
+  order_items OrderItem[]
+  carts       Cart[]
+}
+
+model Cart {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  quantity   Int
+  created_at DateTime @default(now())
+
+  user    User    @relation(fields: [user_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+}
+
+model Order {
+  id             Int        @id @default(autoincrement())
+  user_id        Int
+  total_amount   Int
+  payment_method Payment    @default(qris)
+  status         Status     @default(dikemas)
+  address        String
+  phone          String
+  created_at     DateTime   @default(now())
+
+  user        User        @relation(fields: [user_id], references: [id])
+  order_items OrderItem[]
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  order_id   Int
+  product_id Int
+  quantity   Int
+  price      Int
+  subtotal   Int
+
+  order   Order   @relation(fields: [order_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+}
+
+enum Role {
+  customer
+  admin
+  owner
+}
+
+enum Payment {
+  qris
+}
+
+enum Status {
+  dikemas
+  dikirim
+  sampai
+}
+
