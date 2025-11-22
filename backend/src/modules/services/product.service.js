@@ -2,7 +2,7 @@ import {
   deleteProduct,
   editProduct,
   findAllProduct,
-  findProductById,
+  findProductById, 
   insertProduct,
 } from "../repositories/product.repository.js";
 
@@ -49,7 +49,7 @@ const editProductByIdService = async (productId, productData) => {
 const deleteProductByIdService = async (productId) => {
   await getProductByIdService(productId);
   await deleteProduct(productId);
-};
+}; 
 
 export {
   getAllProductService,

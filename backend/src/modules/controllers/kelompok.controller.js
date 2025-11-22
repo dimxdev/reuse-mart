@@ -7,9 +7,13 @@ import {
 } from "../services/kelompok.service.js";
 
 const getAllAnggotaController = async (req, res) => {
-  const anggota = await getAllAnggotaService();
+  try {
+    const anggota = await getAllAnggotaService(); 
 
-  res.send(anggota);
+    res.status(200).send(anggota);
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
 };
 
 const getAnggotaByIdController = async (req, res) => {

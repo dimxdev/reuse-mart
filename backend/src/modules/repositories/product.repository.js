@@ -1,4 +1,5 @@
 import prisma from "../../db/index.js";
+import capitalizeWord from "../../utils/capitalizeWord.js";
 
 const findAllProduct = async () => {
   const product = await prisma.product.findMany();
@@ -14,12 +15,12 @@ const findProductById = async (productId) => {
   });
 
   return product;
-};
+};  
 
 const insertProduct = async (productData) => {
   const product = await prisma.product.create({
     data: {
-      name: productData.name,
+      name: capitalizeWord(productData.name),
       price: parseInt(productData.price),
       stock: parseInt(productData.stock),
       description: productData.description,
@@ -37,8 +38,8 @@ const editProduct = async (productId, productData) => {
       id: productId,
     },
     data: {
-      name: productData.name,
-      price: parseInt(productData.price),
+      name: capitalizeWord(productData.name),
+      price: parseInt(productData.price),  
       stock: parseInt(productData.stock),
       description: productData.description,
       image_url: productData.imageUrl,

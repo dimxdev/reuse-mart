@@ -41,7 +41,7 @@ const createProductController = async (req, res) => {
     });
   } catch (error) {
     res.status(400).send({
-      error: error.message,
+      error: error.message, 
     });
   }
 };
@@ -73,7 +73,7 @@ const deleteProductByIdController = async (req, res) => {
     });
   } catch (error) {
     res.status(404).send({
-      error: error.message,
+      error: error.message, 
     });
   }
 };
