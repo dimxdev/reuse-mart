@@ -4,7 +4,7 @@ import capitalizeWord from "../../utils/capitalizeWord.js";
 const findAllProduct = async () => {
   const product = await prisma.product.findMany();
 
-  return product;
+  return product; 
 };
 
 const findProductById = async (productId) => {

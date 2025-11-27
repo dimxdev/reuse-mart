@@ -7,7 +7,7 @@ import {
 } from "../services/product.service.js";
 
 const getAllProductController = async (req, res) => {
-  try {
+  try { 
     const product = await getAllProductService();
     res.status(200).send(product);
   } catch (error) {

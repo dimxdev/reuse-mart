@@ -5,6 +5,7 @@ import kelompokRouter from "./modules/routes/kelompok.route.js";
 import productRouter from "./modules/routes/product.route.js"
 import categoryRouter from "./modules/routes/category.route.js"
 import authRouter from "./modules/routes/auth.route.js"
+import cartRouter from "./modules/routes/cart.route.js"
 
 const app = express();
 const port = process.env.PORT;
@@ -17,6 +18,8 @@ app.use("/kelompok", kelompokRouter);
 app.use("/product", productRouter);
 app.use("/category", categoryRouter);
 app.use("/auth", authRouter);
+app.use("/cart", cartRouter);
+
 
 
 app.listen(port, () => {

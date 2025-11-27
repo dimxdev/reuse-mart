@@ -1,4 +1,4 @@
-const authorizeRole = (...allowedRoles) => {
+const authorizeRoleMiddleware = (...allowedRoles) => {
   const middleware = (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({
@@ -18,4 +18,4 @@ const authorizeRole = (...allowedRoles) => {
   return middleware;
 };
 
-export default authorizeRole;
+export default authorizeRoleMiddleware;
