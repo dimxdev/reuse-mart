@@ -1,11 +1,29 @@
 import express from "express";
 import {
-  createUserController,
+  deleteAdminByIdController,
   loginUserController,
+  registeradminController,
+  registerCustomerController,
 } from "../controllers/auth.controller.js";
+import authMiddleware from "../../middlewares/auth.middleware.js";
+import authorizeRoleMiddleware from "../../middlewares/role.middleware.js";
+
 const router = express.Router();
 
-router.post("/register", createUserController);
+router.post("/register/customer", registerCustomerController);
 router.post("/login", loginUserController);
+router.post(
+  "/register/admin",
+  authMiddleware,
+  authorizeRoleMiddleware("owner"),
+  registeradminController
+);
+router.delete(
+  "/delete/admin/:adminId",
+  authMiddleware,
+  authorizeRoleMiddleware("admin"),
+  deleteAdminByIdController
+);
+
 
 export default router;

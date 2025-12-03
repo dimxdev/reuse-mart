@@ -8,12 +8,28 @@ import {
 } from "../controllers/product.controller.js";
 import authMiddleware from "../../middlewares/auth.middleware.js";
 import authorizeRoleMiddleware from "../../middlewares/role.middleware.js";
+
 const router = express.Router();
 
-router.get("/",authMiddleware, authorizeRoleMiddleware("owner"), getAllProductController);
+router.get("/", getAllProductController);
 router.get("/:productId", getProductByIdController);
-router.post("/", createProductController);
-router.patch("/:productId", editProductByIdController);
-router.delete("/:productId", deleteProductByIdController);
+router.post(
+  "/",
+  authMiddleware,
+  authorizeRoleMiddleware("admin", "owner"),
+  createProductController
+);
+router.patch(
+  "/:productId",
+  authMiddleware,
+  authorizeRoleMiddleware("admin", "owner"),
+  editProductByIdController
+);
+router.delete(
+  "/:productId",
+  authMiddleware,
+  authorizeRoleMiddleware("admin", "owner"),
+  deleteProductByIdController
+);
 
 export default router;

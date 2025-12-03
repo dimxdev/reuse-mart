@@ -58,6 +58,7 @@ const deleteProduct = async (productId) => {
   });
 };
 
+
 export {
   findAllProduct,
   findProductById,

@@ -27,7 +27,6 @@ const createProductService = async (productData) => {
     !productData.name ||
     productData.price == null ||
     productData.stock == null ||
-    !productData.imageUrl ||
     !productData.categoryId;
 
   if (wajibMemasukkanDataValidation) {

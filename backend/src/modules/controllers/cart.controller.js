@@ -3,7 +3,7 @@ import {
   deleteAllCartByUserIdService,
   deleteCartByIdService,
   editCartByIdService,
-  getUserCartService,
+  getUserCartService, 
 } from "../services/cart.service.js";
 
 const createCartController = async (req, res) => {
@@ -12,7 +12,7 @@ const createCartController = async (req, res) => {
     const cartData = req.body;
     const cart = await createCartService(cartData, userId);
 
-    res.status(201).send({
+    res.status(201).send({ 
       message: "add product to cart succesfully",
       data: cart,
     });

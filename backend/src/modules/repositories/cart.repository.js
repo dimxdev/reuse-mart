@@ -8,9 +8,9 @@ const insertCart = async (cartData, userId) => {
       quantity: 1,
     },
     include: {
-      product: true,
+      product: true, 
     },
-  });
+  }); 
 
   return cart;
 };

@@ -10,11 +10,11 @@ import authMiddleware from "../../middlewares/auth.middleware.js";
 import authorizeRoleMiddleware from "../../middlewares/role.middleware.js";
 
 const router = express.Router();
-
+ 
 router.get(
   "/",
   authMiddleware,
-  authorizeRoleMiddleware("customer"),
+  authorizeRoleMiddleware("customer"), 
   getUserCartController
 );
 router.post(

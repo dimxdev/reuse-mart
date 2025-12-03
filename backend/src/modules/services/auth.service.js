@@ -2,25 +2,43 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import {
-  createUser,
+  createAdmin,
+  createCustomer,
+  deleteAdmin,
   findUserByEmail,
+  findUserById,
 } from "../repositories/auth.repository.js";
 
-dotenv.config()
+dotenv.config();
 
-const registerUserService = async (userData) => {
-  if (!userData.name || !userData.email || !userData.password) {
+const registerCustomerService = async (customerData) => {
+  if (!customerData.name || !customerData.email || !customerData.password) {
     throw new Error("data yang dimasukkan tidak lengkap coy!");
   }
 
-  const userByEmail = await findUserByEmail(userData);
+  const userByEmail = await findUserByEmail(customerData);
   if (userByEmail) {
     throw new Error("email sudah terdaftar!");
   }
 
-  const user = await createUser(userData);
+  const customer = await createCustomer(customerData);
 
-  return user;
+  return customer;
+};
+
+const registerAdminService = async (adminData) => {
+  if (!adminData.name || !adminData.email || !adminData.password) {
+    throw new Error("data yang dimasukkan tidak lengkap coy!");
+  }
+
+  const userByEmail = await findUserByEmail(adminData);
+  if (userByEmail) {
+    throw new Error("email sudah terdaftar!");
+  }
+
+  const admin = await createAdmin(adminData);
+
+  return admin;
 };
 
 const loginUserService = async (userData) => {
@@ -48,4 +66,17 @@ const loginUserService = async (userData) => {
   return { user, token };
 };
 
-export { registerUserService, loginUserService };
+const deleteAdminByIdService = async (adminId) => {
+  const findAdmin = await findUserById(adminId)
+  if (!findAdmin) {
+    throw new Error("admin tidak ditemukan!")
+  }
+
+  if(findAdmin.role != "admin") {
+    throw new Error("user ini bukan admin!")
+  }
+
+  await deleteAdmin(adminId)
+}
+
+export { registerCustomerService, registerAdminService, loginUserService, deleteAdminByIdService };

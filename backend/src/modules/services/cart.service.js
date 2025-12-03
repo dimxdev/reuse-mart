@@ -8,11 +8,11 @@ import {
   insertCart,
 } from "../repositories/cart.repository.js";
 
-const getCartById = async (cartId) => {
-  const cart = await findCartById(cartId);
+const getCartById = async (cartId) => { 
+  const cart = await findCartById(cartId); 
   if (!cart) {
     throw new Error("cart tidak tersedia");
-  }
+  } 
 
   return cart;
 };
@@ -29,7 +29,7 @@ const createCartService = async (cartData, userId) => {
   const dataValidation = !cartData.productId;
   if (dataValidation) {
     throw new Error("data yang dimasukkan tidak lengkap!");
-  }
+  } 
 
   const cart = await insertCart(cartData, userId);
 
