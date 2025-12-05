@@ -1,1 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
 @import "tailwindcss";
+
+@theme {
+  --font-dimas: "Manufacturing Consent";
+  --font-sofia-sans: "Sofia Sans";
+  --font-inter: "Inter";
+  --font-playfair-display: "Playfair Display";
+
+  --color-tema-50: #f0fbf7;
+  --color-tema-100: #d4f4ea;
+  --color-tema-200: #aae9d5;
+  --color-tema-300: #9fe2bf;
+  --color-tema-400: #6dd4a8;
+  --color-tema-500: #45c191;
+  --color-tema-600: #2fa177;
+  --color-tema-700: #268060;
+  --color-tema-800: #1f654d;
+  --color-tema-900: #144d3c;
+  --color-tema-950: #0a2920;
+}
+
+@layer utilities {
+}
+
+@layer components {
+}
+
+body {
+  background-color: white;
+  background-image: repeating-linear-gradient(
+      0deg,
+      var(--color-tema-50) 0px,
+      var(--color-tema-50) 30px,
+      transparent 30px,
+      transparent 60px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--color-tema-50) 0px,
+      var(--color-tema-50) 30px,
+      transparent 30px,
+      transparent 60px
+    );
+  background-size: 60px 60px;
+  font-family: var(--font-inter);
+}

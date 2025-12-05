@@ -1,15 +1,20 @@
-import { Route, Routes } from "react-router";
-import Template from "../Template";
-import Button from "./components/atom/ButtonExample";
-import Testing from "./pages/Testing";
-import Coret from "./pages/Coret";
+import { Route, Routes, useLocation } from "react-router";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import Navbar from "./components/layout/Navbar";
 
 function App() {
+  const location = useLocation();
+
+  const noLayoutRoute = ["/login", "/register"];
+  const renderLayout = !noLayoutRoute.includes(location.pathname);
+
   return (
-    <div>
+    <div className="w-full h-full min-h-screen">
+      {renderLayout && <Navbar />}
       <Routes>
-        <Route path="/testing" element={<Testing />} />
-        <Route path="/coret" element={<Coret />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
