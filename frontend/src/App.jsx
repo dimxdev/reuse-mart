@@ -6,7 +6,7 @@ import Navbar from "./components/layout/Navbar";
 function App() {
   const location = useLocation();
 
-  const noLayoutRoute = ["/login", "/register"];
+  const noLayoutRoute = ["/login", "/register", "/coret"];
   const renderLayout = !noLayoutRoute.includes(location.pathname);
 
   return (

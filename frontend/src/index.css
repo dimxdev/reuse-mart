@@ -28,6 +28,13 @@
 }
 
 @layer components {
+  .input {
+    @apply rounded-xl focus:outline-none focus:ring-tema-400 focus:ring-2 focus:border-tema-200 focus:border-2 px-3 py-2 bg-white w-[384px] transition-all;
+  }
+
+  .pembungkus-label-input {
+    @apply flex flex-col gap-1
+  }
 }
 
 body {
