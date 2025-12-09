@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import axiosInstance from "../lib/axios";
+import { useAuth } from "../context/AuthContext";
 
-function useLogin() {
+function useLogin() { 
   const navigate = useNavigate();
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
+  const { login } = useAuth()
 
   const handleSubmitLogin = async (values) => {
     try {
@@ -23,8 +25,7 @@ function useLogin() {
 
       const { user, token } = responseLogin.data.data;
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      login(token, user)
 
       if (user.role === "customer") {
         navigate("/dashboard/customer");

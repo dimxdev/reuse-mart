@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 function App() {
   const location = useLocation();
 
-  const noLayoutRoute = ["/login", "/register", "/coret"];
+  const noLayoutRoute = ["/login", "/register"];
   const renderLayout = !noLayoutRoute.includes(location.pathname);
 
   return (
