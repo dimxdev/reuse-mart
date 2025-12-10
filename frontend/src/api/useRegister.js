@@ -32,7 +32,7 @@ function useRegister() {
     handleSubmitRegister,
     isRegisterLoading,
     emailError,
-    setEmailError
+    setEmailError,
   };
 }
 

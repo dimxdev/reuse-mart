@@ -65,7 +65,7 @@ function Navbar() {
                   </div>
 
                   <div className="hover:outline-none text-tema-600 px-2 text-xs">
-                    {auth.user.email}
+                    {auth.user.email} 
                   </div>
 
                   <DropDownMenu.Separator className="m-[5px] h-px bg-black" />

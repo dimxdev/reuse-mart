@@ -50,7 +50,7 @@ function HomePage() {
       {/* 2 */}
       <div className="py-15 flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-playfair-display font-bold text-tema-900">
+          <h1 className="text-3xl font-playfair-display font-bold text-tema-900"> 
             Kenapa Memilih Kami?
           </h1>
           <h1 className="mt-4 text-tema-600">
