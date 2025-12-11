@@ -1,11 +1,12 @@
 import { Navigate, Route, Routes, useLocation } from "react-router";
 import HomePage from "./pages/HomePage";
-import Login from "./pages/Login";
+import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/layout/Navbar";
-import Register from "./pages/Register";
+import RegisterPage from "./pages/RegisterPage";
 import RoleProtectedRoute from "./components/layout/RoleProtectedRoute";
 import AddProductForm from "./components/layout/AddProductForm";
 import { useAuth } from "./context/AuthContext";
+
 
 function App() {
   const location = useLocation();
@@ -20,11 +21,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/addproduct" element={<AddProductForm />} />
+
         <Route
           path="/login"
           element={
             !auth.isAuthenticated ? (
-              <Login />
+              <LoginPage />
             ) : (
               <Navigate
                 to={
@@ -40,12 +43,11 @@ function App() {
             )
           }
         />
-        <Route path="/addproduct" element={<AddProductForm />} />{" "}
         <Route
           path="/register"
           element={
             !auth.isAuthenticated ? (
-              <Register />
+              <RegisterPage />
             ) : (
               <Navigate
                 to={
