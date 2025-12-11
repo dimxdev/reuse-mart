@@ -10,7 +10,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./components/layout/Footer";
 import ProductPage from "./pages/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-
+import About from "./pages/About";
+import OwnerDashboard from "./pages/OwnerDashboard";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,8 @@ function App() {
         <Route path="/product" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/ownerdashboard" element={<OwnerDashboard />} />
 
         <Route
           path="/login"
