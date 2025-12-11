@@ -50,7 +50,7 @@ function HomePage() {
       {/* 2 */}
       <div className="py-15 flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-playfair-display font-bold text-tema-900"> 
+          <h1 className="text-3xl font-playfair-display font-bold text-tema-900">
             Kenapa Memilih Kami?
           </h1>
           <h1 className="mt-4 text-tema-600">
@@ -157,12 +157,16 @@ function HomePage() {
             <h1>terpakai</h1>
           </div>
           <div className="flex gap-3 pr-3">
-            <button className="bg-tema-200 px-4 py-2 rounded-md font-bold hover:scale-110 hover:shadow-sm cursor-pointer transition-all hover:text-tema-950">
-              Jelajahi Product
-            </button>
-            <button className="bg-white/50 px-4 py-2 rounded-md font-bold hover:scale-110 hover:underline hover:shadow-sm cursor-pointer transition-all hover:text-tema-950">
-              Register
-            </button>
+            <Link to="/product">
+              <button className="bg-tema-200 px-4 py-2 rounded-md font-bold hover:scale-110 hover:shadow-sm cursor-pointer transition-all hover:text-tema-950">
+                Jelajahi Product
+              </button>
+            </Link>
+            <Link to="/register">
+              <button className="bg-white/50 px-4 py-2 rounded-md font-bold hover:scale-110 hover:underline hover:shadow-sm cursor-pointer transition-all hover:text-tema-950">
+                Register
+              </button>
+            </Link>
           </div>
         </div>
       </div>

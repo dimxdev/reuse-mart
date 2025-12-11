@@ -5,12 +5,13 @@ import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRegister from "../api/useRegister";
 import registerFormSchema from "../validation/registerFormValidation";
+import Loading from "../components/atom/Loading";
 
 function Register() {
   const form = useForm({
     resolver: zodResolver(registerFormSchema),
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { handleSubmitRegister, isRegisterLoading, emailError, setEmailError } =
     useRegister();
 
@@ -100,11 +101,7 @@ function Register() {
             </h1>
           </div>
 
-          {isRegisterLoading && (
-            <div className="animate-pulse font-bold mt-3 text-tema-900 transition-all duration-100">
-              Loading...
-            </div>
-          )}
+          {isRegisterLoading && <Loading />}
         </form>
       </div>
     </div>

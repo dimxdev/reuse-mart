@@ -1,12 +1,15 @@
-import { Route, Routes, useLocation } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import Navbar from "./components/layout/Navbar";
 import Register from "./pages/Register";
-import RoleProtectedRoutes from "./components/layout/RoleProtectedRoutes";
+import RoleProtectedRoute from "./components/layout/RoleProtectedRoute";
+import AddProductForm from "./components/layout/AddProductForm";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
   const location = useLocation();
+  const { auth } = useAuth();
 
   const noLayoutRoute = ["/login", "/register"];
   const renderLayout = !noLayoutRoute.includes(location.pathname);
@@ -14,12 +17,50 @@ function App() {
   return (
     <div className="w-full h-full min-h-screen">
       {renderLayout && <Navbar />}
+
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<RoleProtectedRoutes roleDapetIzin={["admin"]}>
-          <Register />
-        </RoleProtectedRoutes>} />
+        <Route
+          path="/login"
+          element={
+            !auth.isAuthenticated ? (
+              <Login />
+            ) : (
+              <Navigate
+                to={
+                  auth.user?.role === "customer"
+                    ? "/dashboard/customer"
+                    : auth.user?.role === "admin"
+                    ? "/dashboard/admin"
+                    : auth.user?.role === "owner"
+                    ? "/dashboard/owner"
+                    : "/product"
+                }
+              />
+            )
+          }
+        />
+        <Route path="/addproduct" element={<AddProductForm />} />{" "}
+        <Route
+          path="/register"
+          element={
+            !auth.isAuthenticated ? (
+              <Register />
+            ) : (
+              <Navigate
+                to={
+                  auth.user?.role === "customer"
+                    ? "/dashboard/customer"
+                    : auth.user?.role === "admin"
+                    ? "/dashboard/admin"
+                    : auth.user?.role === "owner"
+                    ? "/dashboard/owner"
+                    : "/product"
+                }
+              />
+            )
+          }
+        />
       </Routes>
     </div>
   );

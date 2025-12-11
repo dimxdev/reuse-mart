@@ -1,12 +1,12 @@
-import { ArrowLeft, HandHeart, LogIn} from "lucide-react";
+import { ArrowLeft, HandHeart, LogIn } from "lucide-react";
 import { useForm } from "react-hook-form";
-import UseBack from "../hooks/UseBack";
 import useLogin from "../api/useLogin";
 import { Link, useNavigate } from "react-router";
+import Loading from "../components/atom/Loading";
 
 function Login() {
   const form = useForm();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { handleSubmitLogin, emailError, loginLoading, passwordError } =
     useLogin();
 
@@ -71,11 +71,7 @@ function Login() {
               </Link>{" "}
             </h1>
           </div>
-          {loginLoading && (
-            <div className="animate-pulse font-bold mt-3 text-tema-900 transition-all duration-100">
-              Loading...
-            </div>
-          )}
+          {loginLoading && <Loading />}
         </form>
       </div>
     </div>
