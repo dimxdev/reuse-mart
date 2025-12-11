@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import RoleProtectedRoute from "./components/layout/RoleProtectedRoute";
 import AddProductForm from "./components/layout/AddProductForm";
 import { useAuth } from "./context/AuthContext";
+import About from "./pages/About";
+import OwnerDashboard from "./pages/OwnerDashboard";
 
 function App() {
   const location = useLocation();
@@ -20,6 +22,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/ownerdashboard" element={<OwnerDashboard />} />
         <Route
           path="/login"
           element={
@@ -45,7 +49,7 @@ function App() {
           path="/register"
           element={
             !auth.isAuthenticated ? (
-              <Register />
+                <Register />
             ) : (
               <Navigate
                 to={
