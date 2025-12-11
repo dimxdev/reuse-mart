@@ -8,6 +8,8 @@ import AddProductForm from "./components/layout/AddProductForm";
 import { useAuth } from "./context/AuthContext";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./components/layout/Footer";
+import ProductPage from "./pages/ProductPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 
 function App() {
@@ -24,7 +26,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/addproduct" element={<AddProductForm />} />
-        <Route path="/product" element={<AddProductForm />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
 
         <Route
