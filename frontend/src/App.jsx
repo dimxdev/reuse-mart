@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import RoleProtectedRoute from "./components/layout/RoleProtectedRoute";
 import AddProductForm from "./components/layout/AddProductForm";
 import { useAuth } from "./context/AuthContext";
+import NotFoundPage from "./pages/NotFoundPage";
+import Footer from "./components/layout/Footer";
 
 function App() {
   const location = useLocation();
@@ -20,6 +22,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route
           path="/login"
           element={
@@ -62,6 +65,8 @@ function App() {
           }
         />
       </Routes>
+
+      {renderLayout && <Footer />}
     </div>
   );
 }
