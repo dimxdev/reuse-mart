@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Double+Ink:wght@100..900&display=swap");
 
 @import "tailwindcss";
 
@@ -10,6 +11,7 @@
   --font-sofia-sans: "Sofia Sans";
   --font-inter: "Inter";
   --font-playfair-display: "Playfair Display";
+  --font-haikal: "Bitcount Prop Double Ink";
 
   --color-tema-50: #f0fbf7;
   --color-tema-100: #d4f4ea;
@@ -33,7 +35,7 @@
   }
 
   .pembungkus-label-input {
-    @apply flex flex-col gap-1
+    @apply flex flex-col gap-1;
   }
 }
 

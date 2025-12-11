@@ -6,6 +6,8 @@ import RegisterPage from "./pages/RegisterPage";
 import RoleProtectedRoute from "./components/layout/RoleProtectedRoute";
 import AddProductForm from "./components/layout/AddProductForm";
 import { useAuth } from "./context/AuthContext";
+import NotFoundPage from "./pages/NotFoundPage";
+import Footer from "./components/layout/Footer";
 
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/addproduct" element={<AddProductForm />} />
         <Route path="/product" element={<AddProductForm />} />
+        <Route path="*" element={<NotFoundPage />} />
 
         <Route
           path="/login"
@@ -65,6 +68,8 @@ function App() {
           }
         />
       </Routes>
+
+      {renderLayout && <Footer />}
     </div>
   );
 }
