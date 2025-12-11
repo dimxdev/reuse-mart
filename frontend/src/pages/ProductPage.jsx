@@ -3,7 +3,7 @@ import images from "../assets/assets";
 import axiosInstance from "../lib/axios";
 import { useEffect, useState } from "react";
 import Loading from "../components/atom/Loading";
-import formatNumberID from "../utils/rupiahFormat";
+import formatRupiah from "../utils/rupiahFormat";
 
 function ProductPage() {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ function ProductPage() {
             <div className="px-2 mt-4 mb-1">
               <div className="flex justify-between">
                 <div className="text-lg text-tema-900 font-bold">
-                  Rp {formatNumberID(product.price)}
+                  Rp {formatRupiah(product.price)}
                 </div>
                 <div className="pr-2">stock: {product.stock}</div>
               </div>
