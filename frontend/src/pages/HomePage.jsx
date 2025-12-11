@@ -33,7 +33,7 @@ function HomePage() {
           </div>
 
           <div className="mt-16 flex gap-5 pr-10">
-            <Link to="#">
+            <Link to="/product">
               <button className="bg-tema-200 px-4 py-2 rounded-md font-bold hover:scale-110 cursor-pointer transition-all hover:text-tema-950">
                 Lihat Produk
               </button>

@@ -7,7 +7,7 @@ import useRegister from "../api/useRegister";
 import registerFormSchema from "../validation/registerFormValidation";
 import Loading from "../components/atom/Loading";
 
-function Register() {
+function RegisterPage() {
   const form = useForm({
     resolver: zodResolver(registerFormSchema),
   });
@@ -108,4 +108,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;

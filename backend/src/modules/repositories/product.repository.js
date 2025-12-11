@@ -4,7 +4,7 @@ import capitalizeWord from "../../utils/capitalizeWord.js";
 const findAllProduct = async () => {
   const product = await prisma.product.findMany();
 
-  return product; 
+  return product;
 };
 
 const findProductById = async (productId) => {
@@ -12,10 +12,13 @@ const findProductById = async (productId) => {
     where: {
       id: productId,
     },
+    include: {
+      category: true
+    },
   });
 
   return product;
-};  
+};
 
 const insertProduct = async (productData) => {
   const product = await prisma.product.create({
@@ -39,7 +42,7 @@ const editProduct = async (productId, productData) => {
     },
     data: {
       name: capitalizeWord(productData.name),
-      price: parseInt(productData.price),  
+      price: parseInt(productData.price),
       stock: parseInt(productData.stock),
       description: productData.description,
       image_url: productData.imageUrl,
@@ -57,7 +60,6 @@ const deleteProduct = async (productId) => {
     },
   });
 };
-
 
 export {
   findAllProduct,

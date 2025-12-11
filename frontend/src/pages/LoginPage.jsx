@@ -4,7 +4,7 @@ import useLogin from "../api/useLogin";
 import { Link, useNavigate } from "react-router";
 import Loading from "../components/atom/Loading";
 
-function Login() {
+function LoginPage() {
   const form = useForm();
   const navigate = useNavigate();
   const { handleSubmitLogin, emailError, loginLoading, passwordError } =
@@ -78,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

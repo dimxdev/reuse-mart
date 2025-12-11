@@ -1,11 +1,15 @@
 import { Navigate, Route, Routes, useLocation } from "react-router";
 import HomePage from "./pages/HomePage";
-import Login from "./pages/Login";
+import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/layout/Navbar";
-import Register from "./pages/Register";
+import RegisterPage from "./pages/RegisterPage";
 import RoleProtectedRoute from "./components/layout/RoleProtectedRoute";
 import AddProductForm from "./components/layout/AddProductForm";
 import { useAuth } from "./context/AuthContext";
+import NotFoundPage from "./pages/NotFoundPage";
+import Footer from "./components/layout/Footer";
+import ProductPage from "./pages/ProductPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import About from "./pages/About";
 import OwnerDashboard from "./pages/OwnerDashboard";
 
@@ -22,13 +26,18 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/addproduct" element={<AddProductForm />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/ownerdashboard" element={<OwnerDashboard />} />
+
         <Route
           path="/login"
           element={
             !auth.isAuthenticated ? (
-              <Login />
+              <LoginPage />
             ) : (
               <Navigate
                 to={
@@ -44,12 +53,11 @@ function App() {
             )
           }
         />
-        <Route path="/addproduct" element={<AddProductForm />} />{" "}
         <Route
           path="/register"
           element={
             !auth.isAuthenticated ? (
-                <Register />
+              <RegisterPage />
             ) : (
               <Navigate
                 to={
@@ -66,6 +74,8 @@ function App() {
           }
         />
       </Routes>
+
+      {renderLayout && <Footer />}
     </div>
   );
 }
