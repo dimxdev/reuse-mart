@@ -31,7 +31,11 @@ function App() {
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/ownerdashboard" element={<OwnerDashboard />} />
+        <Route path="/dashboard/owner" element={
+          <RoleProtectedRoute roleDapetIzin={["owner"]}>
+            <OwnerDashboard />
+          </RoleProtectedRoute>
+        } />
 
         <Route
           path="/login"

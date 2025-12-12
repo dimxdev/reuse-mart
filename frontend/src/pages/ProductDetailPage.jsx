@@ -43,8 +43,8 @@ function ProductDetailPage() {
   console.log(product);
 
   return (
-    <div className="w-full px-10 mt-25 absolute">
-      <div className="">
+    <div className="w-full h-full min-h-screen flex flex-col px-10">
+      <div className="mt-25">
         <button
           onClick={handleBack}
           className="hover:bg-tema-500 bg-tema-100 shadow-lg hover:shadow-xl hover:text-white px-3 py-2 rounded-lg cursor-pointer flex gap-2 text-sm items-center transition-all group"
@@ -55,12 +55,12 @@ function ProductDetailPage() {
       {getProductByIdLoading && <Loading />}
       <div className="pl-1 text-sm text-red-500">{getProductByIdError}</div>
 
-      <div className="my-8 flex gap-5">
-        <div>
+      <div className="mt-8 mb-20 flex gap-5">
+        <div className="">
           <img
             src={product.image_url || images.homepageBg2}
             alt=""
-            className="w-[700px] h-[450px] transition-all rounded-sm border border-black/20"
+            className="w-[700px] h-[450px] rounded-sm border border-black/20"
             onClick={() => navigate(`/product/${product.id}`)}
           />{" "}
         </div>

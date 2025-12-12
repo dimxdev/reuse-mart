@@ -52,11 +52,11 @@ function ProductPage() {
       </div>
 
       {/* 2 */}
-      <div className="w-full my-10 pl-7 flex flex-wrap gap-2">
+      <div className="w-full mb-20 mt-8 pl-7 flex flex-wrap gap-2">
         {productData.map((product) => (
           <div
             key={product.id}
-            className="shadow-lg border border-black/20 w-75 rounded-md overflow-hidden hover:shadow-2xl hover:-translate-y-1 duration-300 transition-all group"
+            className="shadow-lg mt-2 border border-black/20 w-75 rounded-md overflow-hidden hover:shadow-2xl hover:-translate-y-1 duration-300 transition-all group"
           >
             <div className="m-2 overflow-hidden group-hover:rounded-md">
               <img

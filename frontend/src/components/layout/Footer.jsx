@@ -10,8 +10,8 @@ import { Link } from "react-router";
 
 function Footer() {
   return (
-    <footer className="bg-linear-to-br bg-tema-100 border-t border-tema-200 text-gray-800">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+    <footer className="bg-tema-100 border-t border-tema-200 text-gray-800">
+      <div className="max-w-7xl mx-auto px-6 pt-12 pb-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="space-y-4">
             <div className="flex items-center gap-3">

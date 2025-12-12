@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRegister from "../api/useRegister";
-import registerFormSchema from "../validation/registerFormValidation";
+import registerFormSchema from "../validator/registerFormValidation";
 import Loading from "../components/atom/Loading";
 
 function RegisterPage() {

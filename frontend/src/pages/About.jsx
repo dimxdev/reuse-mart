@@ -46,10 +46,10 @@ const About = () => {
 
   return (
     // Container utama
-    <div className="w-full min-h-screen py-20 px-4 sm:px-6 lg:px-8 absolute mt-15">
+    <div className="w-full min-h-screen py-20 px-4 sm:px-6 lg:px-8">
 
       {/* Konten Halaman Terpusat */}
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto mt-10">
         
         {/* Header/Judul Utama */}
         <header className="text-center mb-16">

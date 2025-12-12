@@ -77,7 +77,7 @@ const OwnerDashboard = () => {
           </section>
 
           {/* Section 3: Data Detail (Tabel Placeholder) */}
-          <section className="bg-white p-6 rounded-xl shadow-lg">
+          <section className="bg-white p-6 rounded-xl mb-10 shadow-lg">
             <h3 className="text-xl font-semibold text-tema-700 mb-4">Penjual Teratas</h3>
             <div className="overflow-x-auto">
               {/* Placeholder untuk Tabel */}
