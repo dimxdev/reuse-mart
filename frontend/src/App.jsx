@@ -11,7 +11,8 @@ import Footer from "./components/layout/Footer";
 import ProductPage from "./pages/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import About from "./pages/About";
-import OwnerDashboard from "./pages/OwnerDashboard";
+import CustomerDashboardPage from "./pages/CustomerDashboardPage";
+import OwnerDashboardPage from "./pages/OwnerDashboardPage";
 
 function App() {
   const location = useLocation();
@@ -33,7 +34,12 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/dashboard/owner" element={
           <RoleProtectedRoute roleDapetIzin={["owner"]}>
-            <OwnerDashboard />
+            <OwnerDashboardPage />
+          </RoleProtectedRoute>
+        } />
+        <Route path="/dashboard/customer" element={
+          <RoleProtectedRoute roleDapetIzin={["customer"]}>
+            <CustomerDashboardPage />
           </RoleProtectedRoute>
         } />
 

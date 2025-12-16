@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Data Dummy untuk KPI (Key Performance Indicators)
 const kpiData = [
     { title: "Total Penjualan", value: "Rp 120 Juta", change: "+12.5%", color: "tema-500", icon: "💰" },
@@ -16,7 +14,7 @@ const recentActivities = [
     { type: "Produk Baru", description: "Meja Kayu Jati ditambahkan", time: "1 hari lalu", color: "tema-600" },
 ];
 
-const OwnerDashboard = () => {
+const OwnerDashboardPage = () => {
   return (
     // Hanya menyisakan area konten utama yang akan mengisi seluruh layar
     <div className="flex flex-col min-h-screen">
@@ -110,4 +108,4 @@ const OwnerDashboard = () => {
   );
 }
 
-export default OwnerDashboard;
+export default OwnerDashboardPage;

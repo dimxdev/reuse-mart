@@ -1,43 +1,31 @@
 import { useNavigate } from "react-router";
 import images from "../assets/assets";
-import axiosInstance from "../lib/axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loading from "../components/atom/Loading";
 import formatRupiah from "../utils/rupiahFormat";
+import useGetProduct from "../api/useGetProduct";
 
 function ProductPage() {
   const navigate = useNavigate();
-  const [productData, setProductData] = useState([]);
-  const [getProductLoading, setGetProductLoading] = useState(false);
-  const [getProductError, setGetProductError] = useState("");
-
-  const handleGetProduct = async () => {
-    try {
-      setGetProductError("");
-      setGetProductLoading(true);
-      const result = await axiosInstance.get("/product");
-
-      setGetProductLoading(false);
-
-      return result;
-    } catch (error) {
-      setGetProductError(error.response.data.error);
-    } finally {
-      setGetProductLoading(false);
-    }
-  };
+  const {
+    getProductError,
+    getProductLoading,
+    handleGetProduct,
+    productData,
+    setProductData,
+  } = useGetProduct();
 
   useEffect(() => {
     const getProduct = async () => {
-      const result = await handleGetProduct();
-      const data = result.data;
+      const data = await handleGetProduct();
       setProductData(data);
     };
 
     getProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(productData);
+  console.log(productData)
 
   return (
     <div className="w-full h-full min-h-screen flex flex-col">

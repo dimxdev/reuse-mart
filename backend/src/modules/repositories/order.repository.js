@@ -46,7 +46,11 @@ const findOrderByUserId = async (userId) => {
       user_id: userId,
     },
     include: {
-      order_items: true,
+      order_items: {
+        include: {
+          product: true,
+        },
+      },
     },
   });
 

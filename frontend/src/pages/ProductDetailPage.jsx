@@ -3,44 +3,31 @@ import { ArrowLeft } from "lucide-react";
 import UseBack from "../hooks/UseBack";
 import images from "../assets/assets";
 import { useNavigate, useParams } from "react-router";
-import axiosInstance from "../lib/axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loading from "../components/atom/Loading";
 import formatRupiah from "../utils/rupiahFormat";
+import useGetProductById from "../api/useGetProductById";
 
 function ProductDetailPage() {
   const { handleBack } = UseBack();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [product, setProduct] = useState({});
-  const [getProductByIdLoading, setGetProductByIdLoading] = useState(false);
-  const [getProductByIdError, setGetProductByIdError] = useState("");
-
-  const handleGetProductById = async () => {
-    try {
-      setGetProductByIdError("");
-      setGetProductByIdLoading(true);
-      const result = await axiosInstance.get(`/product/${id}`);
-
-      setGetProductByIdLoading(false);
-      return result.data;
-    } catch (error) {
-      setGetProductByIdError(error.response.data.error);
-    } finally {
-      setGetProductByIdLoading(false);
-    }
-  };
+  const {
+    getProductByIdError,
+    getProductByIdLoading,
+    product,
+    handleGetProductById,
+    setProduct,
+  } = useGetProductById();
 
   useEffect(() => {
     const getProductById = async () => {
-      const product = await handleGetProductById();
+      const product = await handleGetProductById(id);
       setProduct(product);
     };
 
     getProductById();
   }, [id]);
-
-  console.log(product);
 
   return (
     <div className="w-full h-full min-h-screen flex flex-col px-10">
@@ -100,7 +87,10 @@ function ProductDetailPage() {
               </h1>
             </div>
           </div>
-          <button onClick={() => navigate(-1)} className="w-full mt-6 text-lg bg-tema-400 py-3 rounded-md cursor-pointer hover:font-bold hover:bg-tema-500 transition-all duration-300">
+          <button
+            onClick={() => navigate(-1)}
+            className="w-full mt-6 text-lg bg-tema-400 py-3 rounded-md cursor-pointer hover:font-bold hover:bg-tema-500 transition-all duration-300"
+          >
             Tambah Ke Keranjang
           </button>
         </div>
