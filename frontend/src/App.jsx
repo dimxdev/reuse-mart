@@ -18,7 +18,7 @@ function App() {
   const location = useLocation();
   const { auth } = useAuth();
 
-  const noLayoutRoute = ["/login", "/register"];
+  const noLayoutRoute = ["/login", "/register", "/addproduct"];
   const renderLayout = !noLayoutRoute.includes(location.pathname);
 
   return (

@@ -16,7 +16,7 @@ router.get("/:productId", getProductByIdController);
 router.post(
   "/",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner"),
+  authorizeRoleMiddleware("admin", "owner", "customer"),
   createProductController
 );
 router.patch(

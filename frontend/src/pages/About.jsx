@@ -1,4 +1,3 @@
-import React from 'react';
 import images from '../assets/assets';
 
 const About = () => {
@@ -33,13 +32,13 @@ const About = () => {
       name: "Siti Aisyah",
       role: "Head of Operations",
       bio: "Memastikan kelancaran transaksi dan pengalaman pengguna yang terbaik.",
-      imageUrl: "https://via.placeholder.com/150/d4f4ea/268060?text=Siti", // Placeholder
+      imageUrl: images.homepageBg2, // Placeholder
     },
     {
       name: "Bagus Prakoso",
       role: "Lead Developer",
       bio: "Arsitek teknis yang membangun platform Reuse Mart yang efisien dan cepat.",
-      imageUrl: "https://via.placeholder.com/150/d4f4ea/268060?text=Bagus", // Placeholder
+      imageUrl: images.homepageBg2, // Placeholder
     },
   ];
   // ------------------------------
