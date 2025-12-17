@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import axiosInstance from "../lib/axios";
+import axiosInstance from "../lib/axios"; 
 
 function useAddProduct() {
   const navigate = useNavigate();
