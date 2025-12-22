@@ -1,5 +1,6 @@
 import prisma from "../../db/index.js";
 import bcrypt from "bcrypt";
+import capitalizeWord from "../../utils/capitalizeWord.js"
 
 const findUserByEmail = async (userData) => {
   const user = await prisma.user.findUnique({
@@ -24,7 +25,7 @@ const findUserById = async (userId) => {
 const createCustomer = async (customerData) => {
   const customer = await prisma.user.create({
     data: {
-      name: customerData.name,
+      name: capitalizeWord(customerData.name),
       email: customerData.email,
       password: await bcrypt.hash(customerData.password, 10),
       role: "customer",
@@ -37,7 +38,7 @@ const createCustomer = async (customerData) => {
 const createAdmin = async (adminData) => {
   const admin = await prisma.user.create({
     data: {
-      name: adminData.name,
+      name: capitalizeWord(adminData.name),
       email: adminData.email,
       password: await bcrypt.hash(adminData.password, 10),
       role: "admin",

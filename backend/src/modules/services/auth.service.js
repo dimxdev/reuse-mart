@@ -28,7 +28,7 @@ const registerCustomerService = async (customerData) => {
 
 const registerAdminService = async (adminData) => {
   if (!adminData.name || !adminData.email || !adminData.password) {
-    throw new Error("data yang dimasukkan tidak lengkap coy!");
+    throw new Error("Data yang dimasukkan tidak lengkap Bos!");
   }
 
   const userByEmail = await findUserByEmail(adminData);

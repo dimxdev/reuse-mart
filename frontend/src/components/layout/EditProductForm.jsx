@@ -1,34 +1,88 @@
 import { Check, ChevronDown } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../atom/Loading";
 import useGetCategory from "../../api/useGetCategory";
 import useAddProduct from "../../api/useAddProduct";
+import axiosInstance from "../../lib/axios";
 
-function AddProductForm() {
+function EditProductForm() {
   const form = useForm();
-  const { categories, handleGetCategory, setCategories} = useGetCategory()
-  const {addProductError, addProductLoading, handleAddProduct} = useAddProduct()
+  const [product, setProduct] = useState([]);
+  const { categories, handleGetCategory, setCategories } = useGetCategory();
+  const { addProductError, addProductLoading } = useAddProduct();
+
+  const handleGetProductById = async () => {
+    try {
+      const result = await axiosInstance.get("/product/8");
+
+      return result.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditProduct = async (values, id) => {
+    try {
+      await axiosInstance.patch(`/product/${id}`, {
+        name: values.namaProduk,
+        price: values.harga,
+        stock: values.stock,
+        description: values.deskripsi,
+        imageUrl: values.image,
+        categoryId: parseInt(values.category),
+      });
+
+      window.location.href = "/product";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFormSubmit = async (values) => {
+    await handleEditProduct(values, product.id);
+  };
 
   useEffect(() => {
-    const GetCategory = async () => {
+    const getCategory = async () => {
       const category = await handleGetCategory();
       setCategories(category);
     };
 
-    GetCategory();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    const getProductById = async () => {
+      const product = await handleGetProductById();
+      setProduct(product);
+    };
+
+    getProductById();
+    getCategory();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (product.id) {
+      form.setValue("namaProduk", product.name);
+      form.setValue("harga", product.price);
+      form.setValue("stock", product.stock);
+      form.setValue("category", product.category_id.toString());
+      form.setValue("image", product.image_url);
+      form.setValue("deskripsi", product.description);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
+
+  console.log(product);
 
   return (
     <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center absolute">
       <div className="bg-tema-100 rounded-md px-8 py-8 overflow-y-auto max-h-[90vh]">
         <h1 className="text-2xl font-bold font-playfair-display">
-          Form Tambah Produk
+          Form Edit Produk
         </h1>
-        <form onSubmit={form.handleSubmit(handleAddProduct)}>
+        <form onSubmit={form.handleSubmit(handleFormSubmit)}>
           <label className="pembungkus-label-input mt-5 text-tema-900">
             Nama Produk
             <input
@@ -121,7 +175,7 @@ function AddProductForm() {
               Batal
             </button>
             <button className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">
-              Tambah Produk
+              Add Produk
             </button>
           </div>
         </form>
@@ -130,4 +184,4 @@ function AddProductForm() {
   );
 }
 
-export default AddProductForm;
+export default EditProductForm;

@@ -30,11 +30,11 @@ function CustomerDashboardPage() {
   return (
     <div className="w-full h-full min-h-screen flex">
       <div className="my-25 w-full px-20">
-        <h1 className="text-4xl font-bold font-playfair-display text-tema-900">
+        <h1 className="text-4xl font-bold font-playfair-display text-gray-800">
           Dashboard Customer
         </h1>
-        <div className="mt-5 bg-tema-100 border border-tema-200 px-5 py-6 rounded-md flex gap-4 items-center">
-          <div className="bg-white/50 rounded-full px-4 py-4">
+        <div className="mt-5 bg-white border border-tema-100 px-5 py-6 rounded-md flex gap-4 items-center">
+          <div className="bg-tema-100 rounded-full px-4 py-4">
             <User className="w-8 h-8 text-tema-600" />
           </div>
           <div>
@@ -57,7 +57,7 @@ function CustomerDashboardPage() {
           {myOrder.map((order, index) => (
             <div
               key={order.id}
-              className="mt-5 border-2 rounded-md border-tema-600 px-4 py-2 bg-white/30 relative"
+              className="mt-5 border-2 rounded-md border-tema-600 px-4 py-2 bg-white relative"
             >
               <div>
                 <h1 className="text-lg font-bold text-tema-900">

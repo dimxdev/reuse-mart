@@ -24,7 +24,7 @@ const getCategoryByIdService = async (categoryId) => {
 
 const createCategoryService = async (categoryData) => {
   if (!categoryData.name) {
-    throw new Error("nama category wajib diisi!");
+    throw new Error("Nama category wajib diisi!");
   }
 
   const category = await insertCategory(categoryData);

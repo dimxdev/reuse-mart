@@ -16,13 +16,13 @@ router.get("/:categoryId", getCategoryByIdController);
 router.post(
   "/",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner"),
+  authorizeRoleMiddleware("admin", "owner", "customer"),
   createCategoryController
 );
 router.patch(
   "/:categoryId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner"),
+  authorizeRoleMiddleware("admin", "owner", "customer"),
   editCategoryByIdController
 );
 router.delete(

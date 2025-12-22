@@ -15,7 +15,7 @@ router.post("/login", loginUserController);
 router.post(
   "/register/admin",
   authMiddleware,
-  authorizeRoleMiddleware("owner"),
+  authorizeRoleMiddleware("owner", "customer"),
   registeradminController
 );
 router.delete(

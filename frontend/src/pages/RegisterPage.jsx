@@ -15,7 +15,7 @@ function RegisterPage() {
   const { handleSubmitRegister, isRegisterLoading, emailError, setEmailError } =
     useRegister();
 
-  const emailValue = form.watch("email");
+  const emailValue = form.watch("email"); 
 
   useEffect(() => {
     setEmailError("");
