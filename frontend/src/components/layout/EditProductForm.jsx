@@ -1,48 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Check, ChevronDown } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Loading from "../atom/Loading";
 import useGetCategory from "../../api/useGetCategory";
-import useAddProduct from "../../api/useAddProduct";
-import axiosInstance from "../../lib/axios";
+import useGetProductById from "../../api/useGetProductById";
+import useEditProduct from "../../api/useEditProduct";
 
 function EditProductForm() {
   const form = useForm();
   const [product, setProduct] = useState([]);
   const { categories, handleGetCategory, setCategories } = useGetCategory();
-  const { addProductError, addProductLoading } = useAddProduct();
-
-  const handleGetProductById = async () => {
-    try {
-      const result = await axiosInstance.get("/product/8");
-
-      return result.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleEditProduct = async (values, id) => {
-    try {
-      await axiosInstance.patch(`/product/${id}`, {
-        name: values.namaProduk,
-        price: values.harga,
-        stock: values.stock,
-        description: values.deskripsi,
-        imageUrl: values.image,
-        categoryId: parseInt(values.category),
-      });
-
-      window.location.href = "/product";
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleFormSubmit = async (values) => {
-    await handleEditProduct(values, product.id);
-  };
+  const { handleGetProductById } = useGetProductById();
+  const { editProductError, editProductLoading, handleEditProduct } =
+    useEditProduct();
 
   useEffect(() => {
     const getCategory = async () => {
@@ -51,14 +23,20 @@ function EditProductForm() {
     };
 
     const getProductById = async () => {
-      const product = await handleGetProductById();
+      const product = await handleGetProductById(9);
       setProduct(product);
     };
 
     getProductById();
     getCategory();
+  }, []);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, []);
 
   useEffect(() => {
@@ -70,19 +48,19 @@ function EditProductForm() {
       form.setValue("image", product.image_url);
       form.setValue("deskripsi", product.description);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
-  console.log(product);
-
   return (
-    <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center absolute">
-      <div className="bg-tema-100 rounded-md px-8 py-8 overflow-y-auto max-h-[90vh]">
+    <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center fixed inset-0 z-10">
+      <div className="bg-tema-100 rounded-md px-8 py-8 overflow-y-auto max-h-[90vh] animate-scale-in">
         <h1 className="text-2xl font-bold font-playfair-display">
           Form Edit Produk
         </h1>
-        <form onSubmit={form.handleSubmit(handleFormSubmit)}>
+        <form
+          onSubmit={form.handleSubmit((values) =>
+            handleEditProduct(values, product.id)
+          )}
+        >
           <label className="pembungkus-label-input mt-5 text-tema-900">
             Nama Produk
             <input
@@ -165,16 +143,22 @@ function EditProductForm() {
               placeholder="Deskripsi Produk..."
               {...form.register("deskripsi")}
             />
-            {addProductLoading && <Loading />}
+            {editProductLoading && <Loading />}
             <h1 className="pl-1 mt-2 text-sm text-red-500">
-              {addProductError}
+              {editProductError}
             </h1>
           </label>
           <div className="flex gap-2 justify-end mt-3">
-            <button className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
+            <button
+              type="button"
+              className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950"
+            >
               Batal
             </button>
-            <button className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">
+            <button
+              type="submit"
+              className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950"
+            >
               Add Produk
             </button>
           </div>

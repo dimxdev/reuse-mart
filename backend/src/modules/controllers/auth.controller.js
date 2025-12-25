@@ -1,5 +1,6 @@
 import {
   deleteAdminByIdService,
+  getAllAdminService,
   loginUserService,
   registerAdminService,
   registerCustomerService,
@@ -68,9 +69,22 @@ const deleteAdminByIdController = async (req, res) => {
   }
 };
 
+const getAllAdminController = async (req, res) => {
+  try {
+    const admin = await getAllAdminService() 
+
+    res.status(200).send(admin)
+  } catch (error) {
+    res.status(400).send({
+      error: error.mesaage
+    })
+  }
+}
+
 export {
   registerCustomerController,
   loginUserController,
   registeradminController,
   deleteAdminByIdController,
+  getAllAdminController
 };

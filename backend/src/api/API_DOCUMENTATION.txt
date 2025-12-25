@@ -3,33 +3,37 @@
  2. http://localhost:3000/auth/register/admin (POST, [owner] role, register admin)
  3. http://localhost:3000/auth/login (login) (POST, semua bisa akses, login)
  4. http://localhost:3000/auth/delete/admin/:adminId (DELETE, [owner] role, menghapus admin berdasarkan id)
+ 5. http://localhost:3000/auth/admin (GET, [owner] role, mengambil semua data admin)
 
 ## PRODUCT REST API 
- 5. http://localhost:3000/product (GET, semua bisa akses, mengambil semua data product)
- 6. http://localhost:3000/product/:productId (GET, semua bisa akses, mengambil data product berdasarkan id)
- 7. http://localhost:3000/product (POST, [admin, owner] role, create product baru)
- 8. http://localhost:3000/product/:productId (PATCH, [admin, owner] role, edit data product)
- 9. http://localhost:3000/product/:productId (DELETE, [admin, owner] role, hapus product)
+ 6. http://localhost:3000/product (GET, semua bisa akses, mengambil semua data product)
+ 7. http://localhost:3000/product/:productId (GET, semua bisa akses, mengambil data product berdasarkan id)
+ 8. http://localhost:3000/product (POST, [admin, owner] role, create product baru)
+ 9. http://localhost:3000/product/:productId (PATCH, [admin, owner] role, edit data product)
+ 10. http://localhost:3000/product/:productId (DELETE, [admin, owner] role, hapus product)
 
 ## CATEGORY REST API 
- 10. http://localhost:3000/category (GET, semua bisa akses, mengambil semua data category)
- 11. http://localhost:3000/category/:categoryId (GET, semua bisa akses, mengambil data category berdasarkan id)
- 12. http://localhost:3000/category (POST, [admin, owner] role, create category baru)
- 13. http://localhost:3000/category/:categoryId (PATCH, [admin, owner] role, edit data category)
- 14. http://localhost:3000/category (DELETE, [admin, owner] role, delete data category)
+ 11. http://localhost:3000/category (GET, semua bisa akses, mengambil semua data category)
+ 12. http://localhost:3000/category/:categoryId (GET, semua bisa akses, mengambil data category berdasarkan id)
+ 13. http://localhost:3000/category (POST, [admin, owner] role, create category baru)
+ 14. http://localhost:3000/category/:categoryId (PATCH, [admin, owner] role, edit data category)
+ 15. http://localhost:3000/category (DELETE, [admin, owner] role, delete data category)
 
 ## CART REST API 
- 15. http://localhost:3000/cart (GET, [customer] role, mengambil semua data cart customer)
- 16. http://localhost:3000/cart (POST, [customer] role, membuat/insert data cart baru)
- 17. http://localhost:3000/cart/:cartId (PATCH, [customer] role, edit jumlah product di dalam cart)
- 18. http://localhost:3000/cart/:cartId (DELETE, [customer] role, menghapus cart berdasarkan id)
- 19. http://localhost:3000/cart (DELETE, [customer] role, menghapus semua isi cart)
+ 16. http://localhost:3000/cart (GET, [customer] role, mengambil semua data cart customer)
+ 17. http://localhost:3000/cart (POST, [customer] role, membuat/insert data cart baru)
+ 18. http://localhost:3000/cart/:cartId (PATCH, [customer] role, edit jumlah product di dalam cart)
+ 19. http://localhost:3000/cart/:cartId (DELETE, [customer] role, menghapus cart berdasarkan id)
+ 20. http://localhost:3000/cart (DELETE, [customer] role, menghapus semua isi cart)
 
 ## ORDER REST API 
- 20. http://localhost:3000/order (POST, [customer] role, checkout semua isi cart)
- 21. http://localhost:3000/order/my-order (GET, [customer] role, mendapatkan semua riwayat transaksi)
- 22. http://localhost:3000/order/ (GET, [admin, owner] role, mendapatkan semua data transaksi customer)
- 23. http://localhost:3000/order/:orderId (GET, [customer, admin, owner] role, mendapatkan data detail order berdasarkan id order)
- 24. http://localhost:3000/status/:orderId (PATCH, [admin, owner] role, mengubah status pengiriman barang)
+ 21. http://localhost:3000/order (POST, [customer] role, checkout semua isi cart)
+ 22. http://localhost:3000/order/my-order (GET, [customer] role, mendapatkan semua riwayat transaksi)
+ 23. http://localhost:3000/order/ (GET, [admin, owner] role, mendapatkan semua data transaksi customer)
+ 24. http://localhost:3000/order/:orderId (GET, [customer, admin, owner] role, mendapatkan data detail order berdasarkan id order)
+ 25. http://localhost:3000/order/status/:orderId (PATCH, [admin, owner] role, mengubah status pengiriman barang)
+
+## DASHBOARD SUMMARY REST API
+ 26. http://localhost:3000/dashboard/summary (GET, [admin, owner] role, mengambil semua data summary dashboard)
 
    

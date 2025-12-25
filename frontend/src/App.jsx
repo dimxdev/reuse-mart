@@ -17,7 +17,8 @@ import EditProductForm from "./components/layout/EditProductForm";
 import AddCategoryForm from "./components/layout/AddCategoryForm";
 import EditCategoryForm from "./components/layout/EditCategoryForm";
 import AddAdminForm from "./components/layout/AddAdminForm";
-import OwnerDashboard from "./pages/OwnerDashboard";
+import ScrollToTop from "./components/atom/ScrollToTop";
+import ForbiddenPage from "./pages/ForbiddenPage";
 
 function App() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <div className="w-full h-full min-h-screen">
+      <ScrollToTop />
       {renderLayout && <Navbar />}
 
       <Routes>
@@ -92,7 +94,7 @@ function App() {
         <Route path="/editcategory" element={<EditCategoryForm />} />
 
         <Route path="/addadmin" element={<AddAdminForm />} />
-        <Route path="/owner" element={<OwnerDashboard />} />
+        <Route path="/forbidden" element={<ForbiddenPage />} />
         <Route path="/dashboard/owner" element={<OwnerDashboardPage />} />
         {/* <Route
           path="/dashboard/owner"

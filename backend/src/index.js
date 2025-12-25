@@ -7,6 +7,7 @@ import categoryRouter from "./modules/routes/category.route.js"
 import authRouter from "./modules/routes/auth.route.js"
 import cartRouter from "./modules/routes/cart.route.js"
 import orderRouter from "./modules/routes/order.route.js"
+import dashboardRouter from "./modules/routes/dashboard.route.js"
 
 const app = express();
 const port = process.env.PORT;
@@ -21,6 +22,7 @@ app.use("/category", categoryRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
+app.use("/dashboard", dashboardRouter);
 
 
 app.listen(port, () => {

@@ -1,108 +1,231 @@
-// Data Dummy untuk KPI (Key Performance Indicators)
-const kpiData = [
-    { title: "Total Penjualan", value: "Rp 120 Juta", change: "+12.5%", color: "tema-500", icon: "💰" },
-    { title: "Jumlah Pengguna Aktif", value: "8.5K", change: "+5.2%", color: "tema-600", icon: "👥" },
-    { title: "Produk Terdaftar", value: "34.1K", change: "+1.8%", color: "tema-700", icon: "📦" },
-    { title: "Dampak Lingkungan (Kg)", value: "5.2 Ton", change: "Reuse", color: "tema-800", icon: "🌱" },
+/* eslint-disable react-hooks/exhaustive-deps */
+import { DollarSign, TrendingUp, ShoppingBag, Users } from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import formatRupiah from "../utils/rupiahFormat";
+import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
+import AddAdminForm from "../components/layout/AddAdminForm";
+import { useEffect } from "react";
+import useGetAdmin from "../api/useGetAdmin";
+import useDeleteAdmin from "../api/useDeleteAdmin";
+import useGetDashboardSummary from "../api/useGetDashboardSummary";
+import { useWindow } from "../context/WindowContext";
+import exportPDF from "../utils/exportPDF";
+
+const monthlyRevenueData = [
+  { month: "Jan", revenue: 2500000 },
+  { month: "Feb", revenue: 3200000 },
+  { month: "Mar", revenue: 2800000 },
+  { month: "Apr", revenue: 3500000 },
+  { month: "Mei", revenue: 4100000 },
+  { month: "Jun", revenue: 3950000 },
 ];
 
-// Data Dummy untuk aktivitas
-const recentActivities = [
-    { type: "Transaksi Baru", description: "Rp 1.200.000 dari Toko Daur Ulang", time: "10 menit lalu", color: "tema-500" },
-    { type: "Pengguna Baru", description: "Pengguna Budi Santoso mendaftar", time: "1 jam lalu", color: "tema-400" },
-    { type: "Permintaan Penarikan", description: "Rp 5.000.000 oleh Seller XYZ", time: "4 jam lalu", color: "tema-700" },
-    { type: "Produk Baru", description: "Meja Kayu Jati ditambahkan", time: "1 hari lalu", color: "tema-600" },
-];
+function OwnerDashboardPage() {
+  const { auth } = useAuth();
+  const [admin, setAdmin] = useState([]);
+  const [dashboardSummary, setDashboardSummary] = useState();
+  const { handleGetAdmin } = useGetAdmin();
+  const { handleDeleteAdmin } = useDeleteAdmin();
+  const { handleGetDashboardSummary } = useGetDashboardSummary();
+  const { refreshWindow, showHiddenComponent, handleShowHiddenComponent } =
+    useWindow();
 
-const OwnerDashboardPage = () => {
+  useEffect(() => {
+    const getAdmin = async () => {
+      const admin = await handleGetAdmin();
+      setAdmin(admin);
+    };
+
+    getAdmin();
+  }, [refreshWindow]);
+
+  useEffect(() => {
+    const getDashboardSummary = async () => {
+      const summary = await handleGetDashboardSummary();
+      setDashboardSummary(summary);
+    };
+
+    getDashboardSummary();
+  }, []);
+
   return (
-    // Hanya menyisakan area konten utama yang akan mengisi seluruh layar
-    <div className="flex flex-col min-h-screen">
-      
-      {/* Konten Utama Dashboard */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        
-        {/* Area Scrollable Konten */}
-        {/* Padding atas ditambahkan agar tidak terlalu mepet dengan tepi layar */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 md:p-10 mt-20">
-          
-          {/* Section 1: Ringkasan KPI */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            {kpiData.map((kpi, index) => (
-              <div 
-                key={index} 
-                className="bg-white p-6 rounded-xl shadow-lg border-b-4"
-                style={{ borderColor: `var(--color-${kpi.color})` }}
-              >
-                <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-medium text-gray-500">{kpi.title}</h3>
-                    <div className="text-3xl">{kpi.icon}</div>
-                </div>
-                <p className="text-3xl font-bold text-tema-800 mt-1">{kpi.value}</p>
-                <p className={`text-sm mt-2 text-${kpi.color}`}>{kpi.change} dari bulan lalu</p>
+    <div className="min-h-screen pt-25 p-8">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          Owner Dashboard
+        </h1>
+        <p className="text-gray-600">Selamat datang boss {auth.user?.name}</p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* Total Revenue */}
+        <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-tema-100 rounded-lg flex items-center justify-center">
+              <DollarSign className="w-6 h-6 text-tema-600" />
+            </div>
+            <TrendingUp className="w-5 h-5 text-tema-600" />
+          </div>
+          <p className="text-gray-600 text-sm mb-1">Total Revenue</p>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            Rp {formatRupiah(dashboardSummary?.total_revenue)}
+          </h3>
+          <p className="text-tema-600 text-sm">+20.3% dari bulan lalu</p>
+        </div>
+
+        {/* Total Orders */}
+        <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <ShoppingBag className="w-6 h-6 text-blue-600" />
+          </div>
+          <p className="text-gray-600 text-sm mb-1">Total Orders</p>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            {dashboardSummary?.total_orders}
+          </h3>
+          <p className="text-gray-500 text-sm">Semua pesanan</p>
+        </div>
+
+        {/* Average Order */}
+        <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <ShoppingBag className="w-6 h-6 text-blue-600" />
+          </div>
+          <p className="text-gray-600 text-sm mb-1">Total Products</p>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            {dashboardSummary?.total_products}
+          </h3>
+          <p className="text-gray-500 text-sm">Semua product</p>
+        </div>
+
+        {/* Active Users */}
+        <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+            <Users className="w-6 h-6 text-purple-600" />
+          </div>
+          <p className="text-gray-600 text-sm mb-1">Active Customers</p>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            {dashboardSummary?.total_users}
+          </h3>
+          <p className="text-gray-500 text-sm">Pengguna terdaftar</p>
+        </div>
+      </div>
+
+      {/* Monthly Revenue Chart */}
+      <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+          Monthly Revenue
+        </h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={monthlyRevenueData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <XAxis
+              dataKey="month"
+              stroke="#9ca3af"
+              style={{ fontSize: "14px" }}
+            />
+            <YAxis
+              stroke="#9ca3af"
+              style={{ fontSize: "14px" }}
+              tickFormatter={(value) => `${(value / 1000000).toFixed(1)}M`}
+            />
+            <Tooltip
+              formatter={(value) => formatRupiah(value)}
+              contentStyle={{
+                backgroundColor: "white",
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+              }}
+            />
+            <Line
+              type="monotone"
+              dataKey="revenue"
+              stroke="#10b981"
+              strokeWidth={3}
+              dot={{ fill: "#10b981", r: 5 }}
+              activeDot={{ r: 7 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Admin Management */}
+      <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">Admin Management</h2>
+          <button
+            onClick={handleShowHiddenComponent}
+            className="px-4 py-2 cursor-pointer bg-tema-500 text-white rounded-lg font-medium hover:bg-tema-600 transition-colors"
+          >
+            + Add Admin
+          </button>
+        </div>
+        <div className="space-y-2">
+          {admin.map((admin, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between p-4 bg-tema-100 rounded-lg"
+            >
+              <div>
+                <h3 className="font-semibold text-gray-800">{admin.email}</h3>
+                <p className="text-gray-600 text-sm">{admin.name}</p>
               </div>
-            ))}
-          </section>
-
-          {/* Section 2: Visualisasi & Laporan Cepat */}
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-            
-            {/* Grafik Placeholder (Contoh: Penjualan Bulanan) */}
-            <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
-                <h3 className="text-xl font-semibold text-tema-700 mb-4">Tren Penjualan 6 Bulan Terakhir</h3>
-                {/* Placeholder untuk Chart.js/Recharts */}
-                <div className="h-64 bg-tema-100 flex items-center justify-center text-gray-500 rounded-lg border-2 border-dashed border-tema-200">
-                    [Placeholder Grafik Garis/Batang]
-                </div>
+              <button
+                onClick={() => handleDeleteAdmin(admin.id)}
+                className="p-2 bg-white cursor-pointer hover:bg-red-100 rounded-lg transition-colors group"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-gray-600 group-hover:text-red-600"
+                >
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+              </button>
             </div>
+          ))}
+        </div>
+        {showHiddenComponent && <AddAdminForm />}
+      </div>
 
-            {/* Aktivitas Terbaru */}
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-                <h3 className="text-xl font-semibold text-tema-700 mb-4">Aktivitas Terbaru</h3>
-                <ul className="space-y-4">
-                    {recentActivities.map((activity, index) => (
-                        <li key={index} className="flex space-x-3 items-start border-l-4 pl-3"
-                            style={{ borderColor: `var(--color-${activity.color})` }}>
-                            <div>
-                                <p className="font-semibold text-tema-800">{activity.type}</p>
-                                <p className="text-sm text-gray-600">{activity.description}</p>
-                            </div>
-                            <span className="text-xs text-gray-400 whitespace-nowrap ml-auto pt-1">{activity.time}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-          </section>
-
-          {/* Section 3: Data Detail (Tabel Placeholder) */}
-          <section className="bg-white p-6 rounded-xl mb-10 shadow-lg">
-            <h3 className="text-xl font-semibold text-tema-700 mb-4">Penjual Teratas</h3>
-            <div className="overflow-x-auto">
-              {/* Placeholder untuk Tabel */}
-              <table className="min-w-full divide-y divide-tema-200">
-                <thead>
-                  <tr className="bg-tema-50">
-                    <th className="px-6 py-3 text-left text-xs font-medium text-tema-700 uppercase tracking-wider">Nama Toko</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-tema-700 uppercase tracking-wider">Transaksi</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-tema-700 uppercase tracking-wider">Rating</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-tema-700 uppercase tracking-wider">Bergabung</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {['EcoStore', 'SecondHandGoods', 'BumiHijau'].map((store, index) => (
-                    <tr key={index}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-tema-600">{store}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{[520, 480, 310][index]}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">⭐ 4.{[9, 7, 5][index]}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jan 2023</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-        </main>
+      {/* Export Report */}
+      <div className="bg-white rounded-lg p-6 shadow-sm">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Export Report</h2>
+        <p className="text-gray-600 mb-6">
+          Download laporan lengkap dalam format PDF
+        </p>
+        <button
+          onClick={() =>
+            exportPDF(
+              dashboardSummary.total_revenue,
+              dashboardSummary.total_orders,
+              dashboardSummary.total_products,
+              dashboardSummary.total_users
+            )
+          }
+          className="cursor-pointer px-6 py-3 bg-tema-500 text-white rounded-lg font-medium hover:bg-tema-600 transition-colors"
+        >
+          Export Report
+        </button>
       </div>
     </div>
   );

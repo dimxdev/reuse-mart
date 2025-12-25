@@ -1,73 +1,54 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Loading from "../atom/Loading";
-import axiosInstance from "../../lib/axios";
+import useEditCategory from "../../api/useEditCategory";
+import useGetCategoryById from "../../api/useGetCategoryById";
 
 function EditCategoryForm() {
   const form = useForm();
-  const [editCategoryLoading, setEditCategoryLoading] = useState(false);
-  const [editCategoryError, setEditCategoryError] = useState("");
-  const [getCategoryByIdLoading, setGetCategoryByIdLoading] = useState(false)
-  const [getCategoryByIdError, setGetCategoryByIdError] = useState("")
-  const [category, setCategory] = useState([])
-
-  const handleEditCategory = async (values) => {
-    try {
-      setEditCategoryLoading(true);
-      setEditCategoryError("");
-
-      await axiosInstance.patch(`/category/${category.id}`, {
-        name: values.namaCategory,
-        description: values.deskripsi,
-      });
-
-      setEditCategoryLoading(false);
-    } catch (error) {
-      setEditCategoryError(error.response.data.error);
-    } finally {
-      setEditCategoryLoading(false);
-    }
-  };
-
-  const handleGetCategoryById = async () => {
-    try {
-        setGetCategoryByIdLoading(true)
-        setGetCategoryByIdError("")
-
-        const result = await axiosInstance.get("/category/2")
-
-        setGetCategoryByIdLoading(false)
-        return result.data
-    } catch (error) {
-        setGetCategoryByIdError(error.response.data.error)
-    } finally {
-        setGetCategoryByIdLoading(false)
-    }
-  }
+  const [category, setCategory] = useState([]);
+  const { editCategoryError, editCategoryLoading, handleEditCategory } =
+    useEditCategory();
+  const {
+    getCategoryByIdError,
+    getCategoryByIdLoading,
+    handleGetCategoryById,
+  } = useGetCategoryById();
 
   useEffect(() => {
     const getCategoryById = async () => {
-        const category = await handleGetCategoryById()
-        setCategory(category)
-    }
+      const category = await handleGetCategoryById();
+      setCategory(category);
+    };
 
-    getCategoryById()
-  }, [])
+    getCategoryById();
+  }, []);
 
   useEffect(() => {
-    form.setValue("namaCategory", category.name)
-    form.setValue("deskripsi", category.description)
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[category])
+    form.setValue("namaCategory", category.name);
+    form.setValue("deskripsi", category.description);
+  }, [category]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
-    <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center absolute z-10">
-      <div className="bg-tema-100 rounded-md w-[500px] px-8 py-8 overflow-y-auto max-h-[90vh]">
+    <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center fixed inset-0 z-10">
+      <div className="bg-tema-100 rounded-md w-[500px] px-8 py-8 overflow-y-auto max-h-[90vh] animate-scale-in">
         <h1 className="text-2xl font-bold font-playfair-display">
           Form Edit Category
         </h1>
-        <form onSubmit={form.handleSubmit(handleEditCategory)}>
+        <form
+          onSubmit={form.handleSubmit((values) =>
+            handleEditCategory(values, category.id)
+          )}
+        >
           <label className="pembungkus-label-input mt-5 text-tema-900">
             Nama Category
             <input
@@ -93,10 +74,16 @@ function EditCategoryForm() {
             </h1>
           </label>
           <div className="flex gap-2 justify-end mt-3">
-            <button className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
+            <button
+              type="button"
+              className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950"
+            >
               Batal
             </button>
-            <button className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">
+            <button
+              type="submit"
+              className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950"
+            >
               Edit Category
             </button>
           </div>

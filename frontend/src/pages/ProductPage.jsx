@@ -40,7 +40,7 @@ function ProductPage() {
       </div>
 
       {/* 2 */}
-      <div className="w-full mb-20 mt-8 pl-7 flex flex-wrap gap-2">
+      <div className="w-full mb-20 mt-8 px-5 2xl:px-32 2xl:gap-4 flex flex-wrap gap-2">
         {productData.map((product) => (
           <div
             key={product.id}

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   deleteAdminByIdController,
+  getAllAdminController,
   loginUserController,
   registeradminController,
   registerCustomerController,
@@ -10,6 +11,7 @@ import authorizeRoleMiddleware from "../../middlewares/role.middleware.js";
 
 const router = express.Router();
 
+router.get("/admin", getAllAdminController)
 router.post("/register/customer", registerCustomerController);
 router.post("/login", loginUserController);
 router.post(
@@ -21,7 +23,7 @@ router.post(
 router.delete(
   "/delete/admin/:adminId",
   authMiddleware,
-  authorizeRoleMiddleware("admin"),
+  authorizeRoleMiddleware("owner", "customer"),
   deleteAdminByIdController
 );
 

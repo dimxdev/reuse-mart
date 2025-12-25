@@ -5,6 +5,7 @@ import {
   createAdmin,
   createCustomer,
   deleteAdmin,
+  findAllAdmin,
   findUserByEmail,
   findUserById,
 } from "../repositories/auth.repository.js";
@@ -67,16 +68,28 @@ const loginUserService = async (userData) => {
 };
 
 const deleteAdminByIdService = async (adminId) => {
-  const findAdmin = await findUserById(adminId)
+  const findAdmin = await findUserById(adminId);
   if (!findAdmin) {
-    throw new Error("admin tidak ditemukan!")
+    throw new Error("admin tidak ditemukan!");
   }
 
-  if(findAdmin.role != "admin") {
-    throw new Error("user ini bukan admin!")
+  if (findAdmin.role != "admin") {
+    throw new Error("user ini bukan admin!");
   }
 
-  await deleteAdmin(adminId)
-}
+  await deleteAdmin(adminId);
+};
 
-export { registerCustomerService, registerAdminService, loginUserService, deleteAdminByIdService };
+const getAllAdminService = async () => {
+  const admin = await findAllAdmin();
+
+  return admin;
+};
+
+export {
+  registerCustomerService,
+  registerAdminService,
+  loginUserService,
+  deleteAdminByIdService,
+  getAllAdminService,
+};

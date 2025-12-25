@@ -1,31 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loading from "../atom/Loading";
-import axiosInstance from "../../lib/axios";
+import useAddAdmin from "../../api/useAddAdmin";
+import { useWindow } from "../../context/WindowContext";
 
-function AddAdminForm({ onClose }) {
+function AddAdminForm() {
   const form = useForm();
-  const [addAdminLoading, setAddAdminLoading] = useState(false);
-  const [addAdminError, setAddAdminError] = useState("");
-
-  const handleAddAdmin = async (values) => {
-    try {
-      setAddAdminLoading(true);
-      setAddAdminError("");
-
-      await axiosInstance.post("/auth/register/admin", {
-        name: values.username,
-        email: values.email,
-        password: values.password,
-      });
-
-      setAddAdminLoading(false);
-    } catch (error) {
-      setAddAdminError(error.response.data.error);
-    } finally {
-      setAddAdminLoading(false);
-    }
-  };
+  const { handleCloseHiddenComponent } = useWindow();
+  const { addAdminError, addAdminLoading, handleAddAdmin } = useAddAdmin();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -73,10 +55,17 @@ function AddAdminForm({ onClose }) {
           </label>
 
           <div className="flex gap-2 justify-end mt-4">
-            <button onClick={onClose} className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
+            <button
+              type="button"
+              onClick={handleCloseHiddenComponent}
+              className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950"
+            >
               Batal
             </button>
-            <button className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">
+            <button
+              type="submit"
+              className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950"
+            >
               Add Admin
             </button>
           </div>

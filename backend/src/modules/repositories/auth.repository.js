@@ -1,6 +1,6 @@
 import prisma from "../../db/index.js";
 import bcrypt from "bcrypt";
-import capitalizeWord from "../../utils/capitalizeWord.js"
+import capitalizeWord from "../../utils/capitalizeWord.js";
 
 const findUserByEmail = async (userData) => {
   const user = await prisma.user.findUnique({
@@ -20,6 +20,16 @@ const findUserById = async (userId) => {
   });
 
   return user;
+};
+
+const findAllAdmin = async () => {
+  const admin = await prisma.user.findMany({
+    where: {
+      role: "admin",
+    },
+  });
+
+  return admin;
 };
 
 const createCustomer = async (customerData) => {
@@ -62,4 +72,5 @@ export {
   createAdmin,
   deleteAdmin,
   findUserById,
+  findAllAdmin,
 };

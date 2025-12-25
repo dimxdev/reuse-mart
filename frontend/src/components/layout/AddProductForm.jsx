@@ -8,8 +8,9 @@ import useAddProduct from "../../api/useAddProduct";
 
 function AddProductForm() {
   const form = useForm();
-  const { categories, handleGetCategory, setCategories} = useGetCategory()
-  const {addProductError, addProductLoading, handleAddProduct} = useAddProduct()
+  const { categories, handleGetCategory, setCategories } = useGetCategory();
+  const { addProductError, addProductLoading, handleAddProduct } =
+    useAddProduct();
 
   useEffect(() => {
     const GetCategory = async () => {
@@ -18,13 +19,20 @@ function AddProductForm() {
     };
 
     GetCategory();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
-    <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center absolute">
-      <div className="bg-tema-100 rounded-md px-8 py-8 overflow-y-auto max-h-[90vh]">
+    <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center fixed inset-0 z-10">
+      <div className="bg-tema-100 rounded-md px-8 py-8 overflow-y-auto max-h-[90vh] animate-scale-in">
         <h1 className="text-2xl font-bold font-playfair-display">
           Form Tambah Produk
         </h1>
@@ -117,10 +125,10 @@ function AddProductForm() {
             </h1>
           </label>
           <div className="flex gap-2 justify-end mt-3">
-            <button className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
+            <button type="button" className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
               Batal
             </button>
-            <button className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">
+            <button type="submit" className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">
               Tambah Produk
             </button>
           </div>
