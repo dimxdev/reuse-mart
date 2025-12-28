@@ -7,6 +7,7 @@ const insertOrder = async (userId, orderData, totalAmount) => {
       total_amount: totalAmount,
       address: orderData.address,
       phone: orderData.phone,
+      penerima: orderData.penerima
     },
   });
 

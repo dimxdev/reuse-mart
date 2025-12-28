@@ -68,6 +68,12 @@ function CustomerDashboardPage() {
                 </h1>
               </div>
               <div className="mt-4">
+                <h1 className="text-lg font-bold text-tema-900">Penerima:</h1>
+                <h1 className="text-sm text-tema-400">
+                  {capitalizeWord(order.penerima || "")}
+                </h1>
+              </div>
+              <div className="mt-4">
                 <h1 className="text-lg font-bold text-tema-900">Alamat:</h1>
                 <h1 className="text-sm text-tema-400">
                   {capitalizeWord(order.address)}

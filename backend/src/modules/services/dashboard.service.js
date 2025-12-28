@@ -1,29 +1,22 @@
-import {
-  countUsersRepo,
-  countProductsRepo,
-  countOrdersRepo,
-  sumRevenueRepo,
-} from "../repositories/dashboard.repository.js";
+import dashboardRepository from "../repositories/dashboard.repository.js";
 
-const getDashboardSummaryService = async () => {
-  const [
-    totalUsers,
-    totalProducts,
-    totalOrders,
-    revenueResult,
-  ] = await Promise.all([
-    countUsersRepo(),
-    countProductsRepo(),
-    countOrdersRepo(),
-    sumRevenueRepo(),
-  ]);
+class DashboardService {
+  async getDashboardSummaryService() {
+    const [totalUsers, totalProducts, totalOrders, revenueResult] =
+      await Promise.all([
+        dashboardRepository.countUsersRepo(),
+        dashboardRepository.countProductsRepo(),
+        dashboardRepository.countOrdersRepo(),
+        dashboardRepository.sumRevenueRepo(),
+      ]);
 
-  return {
-    total_users: totalUsers,
-    total_products: totalProducts || 0,
-    total_orders: totalOrders || 0,
-    total_revenue: revenueResult._sum.total_amount || 0,
-  };
-};
+    return {
+      total_users: totalUsers,
+      total_products: totalProducts || 0,
+      total_orders: totalOrders || 0,
+      total_revenue: revenueResult._sum.total_amount || 0,
+    };
+  }
+}
 
-export { getDashboardSummaryService };
+export default new DashboardService();

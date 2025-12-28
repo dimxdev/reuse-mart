@@ -75,6 +75,7 @@ model Order {
   payment_method Payment    @default(qris)
   status         Status     @default(dikemas)
   address        String
+  penerima       String?
   phone          String
   created_at     DateTime   @default(now())
 

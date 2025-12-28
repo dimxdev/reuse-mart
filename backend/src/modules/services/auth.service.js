@@ -1,95 +1,87 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import {
-  createAdmin,
-  createCustomer,
-  deleteAdmin,
-  findAllAdmin,
-  findUserByEmail,
-  findUserById,
-} from "../repositories/auth.repository.js";
+import authRepository from "../repositories/auth.repository.js";
 
 dotenv.config();
 
-const registerCustomerService = async (customerData) => {
-  if (!customerData.name || !customerData.email || !customerData.password) {
-    throw new Error("data yang dimasukkan tidak lengkap coy!");
-  }
-
-  const userByEmail = await findUserByEmail(customerData);
-  if (userByEmail) {
-    throw new Error("email sudah terdaftar!");
-  }
-
-  const customer = await createCustomer(customerData);
-
-  return customer;
-};
-
-const registerAdminService = async (adminData) => {
-  if (!adminData.name || !adminData.email || !adminData.password) {
-    throw new Error("Data yang dimasukkan tidak lengkap Bos!");
-  }
-
-  const userByEmail = await findUserByEmail(adminData);
-  if (userByEmail) {
-    throw new Error("email sudah terdaftar!");
-  }
-
-  const admin = await createAdmin(adminData);
-
-  return admin;
-};
-
-const loginUserService = async (userData) => {
-  const user = await findUserByEmail(userData);
-  if (!user) {
-    throw new Error("email belum terdaftar");
-  }
-
-  const checkPassword = await bcrypt.compare(userData.password, user.password);
-  if (!checkPassword) {
-    throw new Error("password salah!");
-  }
-
-  const token = jwt.sign(
-    {
-      id: user.id,
-      role: user.role,
-    },
-    process.env.JWT_SECREET,
-    {
-      expiresIn: "7d",
+class AuthService {
+  async registerCustomerService(customerData) {
+    if (!customerData.name || !customerData.email || !customerData.password) {
+      throw new Error("data yang dimasukkan tidak lengkap coy!");
     }
-  );
 
-  return { user, token };
-};
+    const userByEmail = await authRepository.findUserByEmail(customerData);
+    if (userByEmail) {
+      throw new Error("email sudah terdaftar!");
+    }
 
-const deleteAdminByIdService = async (adminId) => {
-  const findAdmin = await findUserById(adminId);
-  if (!findAdmin) {
-    throw new Error("admin tidak ditemukan!");
+    const customer = await authRepository.createCustomer(customerData);
+
+    return customer;
   }
 
-  if (findAdmin.role != "admin") {
-    throw new Error("user ini bukan admin!");
+  async registerAdminService(adminData) {
+    if (!adminData.name || !adminData.email || !adminData.password) {
+      throw new Error("Data yang dimasukkan tidak lengkap Bos!");
+    }
+
+    const userByEmail = await authRepository.findUserByEmail(adminData);
+    if (userByEmail) {
+      throw new Error("email sudah terdaftar!");
+    }
+
+    const admin = await authRepository.createAdmin(adminData);
+
+    return admin;
   }
 
-  await deleteAdmin(adminId);
-};
+  async loginUserService(userData) {
+    const user = await authRepository.findUserByEmail(userData);
+    if (!user) {
+      throw new Error("email belum terdaftar");
+    }
 
-const getAllAdminService = async () => {
-  const admin = await findAllAdmin();
+    const checkPassword = await bcrypt.compare(
+      userData.password,
+      user.password
+    );
+    if (!checkPassword) {
+      throw new Error("password salah!");
+    }
 
-  return admin;
-};
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,
+      },
+      process.env.JWT_SECREET,
+      {
+        expiresIn: "7d",
+      }
+    );
 
-export {
-  registerCustomerService,
-  registerAdminService,
-  loginUserService,
-  deleteAdminByIdService,
-  getAllAdminService,
-};
+    return { user, token };
+  }
+
+  async deleteAdminByIdService(adminId) {
+    const findAdmin = await authRepository.findUserById(adminId);
+    if (!findAdmin) {
+      throw new Error("admin tidak ditemukan!");
+    }
+
+    if (findAdmin.role != "admin") {
+      throw new Error("user ini bukan admin!");
+    }
+
+    await authRepository.deleteAdmin(adminId);
+  }
+
+  async getAllAdminService() {
+    const admin = await authRepository.findAllAdmin();
+
+    return admin;
+  }
+}
+
+export default new AuthService();

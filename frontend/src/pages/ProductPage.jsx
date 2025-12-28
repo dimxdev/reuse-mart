@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import Loading from "../components/atom/Loading";
 import formatRupiah from "../utils/rupiahFormat";
 import useGetProduct from "../api/useGetProduct";
+import useAddCart from "../api/useAddCart";
 
 function ProductPage() {
   const navigate = useNavigate();
+  const { handleAddCart } = useAddCart();
   const {
     getProductError,
     getProductLoading,
@@ -22,10 +24,8 @@ function ProductPage() {
     };
 
     getProduct();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(productData)
 
   return (
     <div className="w-full h-full min-h-screen flex flex-col">
@@ -68,7 +68,7 @@ function ProductPage() {
               </div>
               <div className="mt-5">
                 <button
-                  onClick={() => navigate(`/product/${product.id}`)}
+                  onClick={() => handleAddCart(product.id)}
                   className="w-full bg-tema-400 py-2 rounded-md hover:bg-tema-600 hover:font-bold transition-all cursor-pointer"
                 >
                   Tambah Ke keranjang

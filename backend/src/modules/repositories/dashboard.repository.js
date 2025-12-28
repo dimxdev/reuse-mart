@@ -1,32 +1,29 @@
 import prisma from "../../db/index.js";
 
-const countUsersRepo = () => {
-  return prisma.user.count({
-    where: {
-        role: "customer"
-    }
-  });
-};
+class DashboardRepository {
+  async countUsersRepo() {
+    return await prisma.user.count({
+      where: {
+        role: "customer",
+      },
+    });
+  }
 
-const countProductsRepo = () => {
-  return prisma.product.count();
-};
+  async countProductsRepo() {
+    return await prisma.product.count();
+  }
 
-const countOrdersRepo = () => {
-  return prisma.order.count();
-};
+  async countOrdersRepo() {
+    return prisma.order.count();
+  }
 
-const sumRevenueRepo = () => {
-  return prisma.order.aggregate({
-    _sum: {
-      total_amount: true,
-    },
-  });
-};
+  async sumRevenueRepo() {
+    return prisma.order.aggregate({
+      _sum: {
+        total_amount: true,
+      },
+    });
+  }
+}
 
-export {
-  countUsersRepo,
-  countProductsRepo,
-  countOrdersRepo,
-  sumRevenueRepo,
-};
+export default new DashboardRepository();

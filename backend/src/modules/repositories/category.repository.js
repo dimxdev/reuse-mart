@@ -1,59 +1,55 @@
 import prisma from "../../db/index.js";
 import capitalizeWord from "../../utils/capitalizeWord.js";
 
-const findAllCategory = async () => {
-  const category = await prisma.category.findMany();
+class CategoryRepository {
+  async findAllCategory() {
+    const category = await prisma.category.findMany();
 
-  return category;
-};
+    return category;
+  }
 
-const findCategoryById = async (categoryId) => {
-  const category = await prisma.category.findUnique({
-    where: {
-      id: categoryId,
-    },
-  });
+  async findCategoryById(categoryId) {
+    const category = await prisma.category.findUnique({
+      where: {
+        id: categoryId,
+      },
+    });
 
-  return category;
-};
+    return category;
+  }
 
-const insertCategory = async (categoryData) => {
-  const category = await prisma.category.create({
-    data: {
-      name: capitalizeWord(categoryData.name),
-      description: categoryData.description,
-    },
-  });
+  async insertCategory(categoryData) {
+    const category = await prisma.category.create({
+      data: {
+        name: capitalizeWord(categoryData.name),
+        description: categoryData.description,
+      },
+    });
 
-  return category;
-};
+    return category;
+  }
 
-const editCategory = async (categoryId, categoryData) => {
-  const category = await prisma.category.update({
-    where: {
-      id: categoryId,
-    },
-    data: {
-      name: capitalizeWord(categoryData.name),
-      description: categoryData.description,
-    },
-  });
+  async editCategory(categoryId, categoryData) {
+    const category = await prisma.category.update({
+      where: {
+        id: categoryId,
+      },
+      data: {
+        name: capitalizeWord(categoryData.name),
+        description: categoryData.description,
+      },
+    });
 
-  return category;
-};
+    return category;
+  }
 
-const deleteCategory = async (categoryId) => {
-  await prisma.category.delete({
-    where: {
-      id: categoryId,
-    },
-  });
-};
+  async deleteCategory(categoryId) {
+    await prisma.category.delete({
+      where: {
+        id: categoryId,
+      },
+    });
+  }
+}
 
-export {
-  findAllCategory,
-  findCategoryById,
-  insertCategory,
-  editCategory,
-  deleteCategory,
-};
+export default new CategoryRepository();

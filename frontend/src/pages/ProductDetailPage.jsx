@@ -7,11 +7,13 @@ import { useEffect } from "react";
 import Loading from "../components/atom/Loading";
 import formatRupiah from "../utils/rupiahFormat";
 import useGetProductById from "../api/useGetProductById";
+import useAddCart from "../api/useAddCart";
 
 function ProductDetailPage() {
   const { handleBack } = UseBack();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { handleAddCart } = useAddCart();
   const {
     getProductByIdError,
     getProductByIdLoading,
@@ -88,7 +90,7 @@ function ProductDetailPage() {
             </div>
           </div>
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => handleAddCart(parseInt(id))}
             className="w-full mt-6 text-lg bg-tema-400 py-3 rounded-md cursor-pointer hover:font-bold hover:bg-tema-500 transition-all duration-300"
           >
             Tambah Ke Keranjang

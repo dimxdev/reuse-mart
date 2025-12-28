@@ -19,6 +19,7 @@ import EditCategoryForm from "./components/layout/EditCategoryForm";
 import AddAdminForm from "./components/layout/AddAdminForm";
 import ScrollToTop from "./components/atom/ScrollToTop";
 import ForbiddenPage from "./pages/ForbiddenPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   const location = useLocation();
@@ -87,6 +88,7 @@ function App() {
             </RoleProtectedRoute>
           }
         />
+        <Route path="/cart" element={<CartPage />} />
 
         <Route path="/addproduct" element={<AddProductForm />} />
         <Route path="/editproduct" element={<EditProductForm />} />

@@ -101,9 +101,11 @@ function HomePage() {
             <h1>menemukan barang-barang preloved dengan mudah dan aman.</h1>
           </div>
           <div>
-            <button className="bg-tema-200 px-4 py-2 rounded-md font-bold hover:scale-110 cursor-pointer transition-all hover:text-tema-950">
-              Selengkapnya
-            </button>
+            <Link to="/about">
+              <button className="bg-tema-200 px-4 py-2 rounded-md font-bold hover:scale-110 cursor-pointer transition-all hover:text-tema-950">
+                Selengkapnya
+              </button>
+            </Link>
           </div>
         </div>
       </div>

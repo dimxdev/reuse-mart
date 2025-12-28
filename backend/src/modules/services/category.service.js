@@ -1,54 +1,46 @@
-import {
-  deleteCategory,
-  editCategory,
-  findAllCategory,
-  findCategoryById,
-  insertCategory,
-} from "../repositories/category.repository.js";
+import categoryRepository from "../repositories/category.repository.js";
 
-const getAllCategoryService = async () => {
-  const category = await findAllCategory();
+class CategoryService {
+  async getAllCategoryService() {
+    const category = await categoryRepository.findAllCategory();
 
-  return category;
-};
-
-const getCategoryByIdService = async (categoryId) => {
-  const category = await findCategoryById(categoryId);
-
-  if (!category) {
-    throw new Error("Category Not Found!");
+    return category;
   }
 
-  return category;
-};
+  async getCategoryByIdService(categoryId) {
+    const category = await categoryRepository.findCategoryById(categoryId);
 
-const createCategoryService = async (categoryData) => {
-  if (!categoryData.name) {
-    throw new Error("Nama category wajib diisi!");
+    if (!category) {
+      throw new Error("Category Not Found!");
+    }
+
+    return category;
   }
 
-  const category = await insertCategory(categoryData);
+  async createCategoryService(categoryData) {
+    if (!categoryData.name) {
+      throw new Error("Nama category wajib diisi!");
+    }
 
-  return category;
-};
+    const category = await categoryRepository.insertCategory(categoryData);
 
-const editCategoryByIdService = async (categoryId, categoryData) => {
-  await getCategoryByIdService(categoryId);
-  const category = await editCategory(categoryId, categoryData);
+    return category;
+  }
 
-  return category;
-};
+  async editCategoryByIdService(categoryId, categoryData) {
+    await this.getCategoryByIdService(categoryId);
+    const category = await categoryRepository.editCategory(
+      categoryId,
+      categoryData
+    );
 
-const deleteCategoryByIdService = async (categoryId) => {
-  await getCategoryByIdService(categoryId);
-  await deleteCategory(categoryId);
-};
+    return category;
+  }
 
+  async deleteCategoryByIdService(categoryId) {
+    await this.getCategoryByIdService(categoryId);
+    await categoryRepository.deleteCategory(categoryId);
+  }
+}
 
-export {
-  getAllCategoryService,
-  getCategoryByIdService,
-  createCategoryService,
-  editCategoryByIdService,
-  deleteCategoryByIdService,
-};
+export default new CategoryService();

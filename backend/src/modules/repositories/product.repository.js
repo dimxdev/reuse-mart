@@ -1,70 +1,66 @@
 import prisma from "../../db/index.js";
 import capitalizeWord from "../../utils/capitalizeWord.js";
 
-const findAllProduct = async () => {
-  const product = await prisma.product.findMany();
+class ProductRepository {
+  async findAllProduct() {
+    const product = await prisma.product.findMany();
 
-  return product;
-};
+    return product;
+  }
 
-const findProductById = async (productId) => {
-  const product = await prisma.product.findUnique({
-    where: {
-      id: productId,
-    },
-    include: {
-      category: true
-    },
-  });
+  async findProductById(productId) {
+    const product = await prisma.product.findUnique({
+      where: {
+        id: productId,
+      },
+      include: {
+        category: true,
+      },
+    });
 
-  return product;
-};
+    return product;
+  }
 
-const insertProduct = async (productData) => {
-  const product = await prisma.product.create({
-    data: {
-      name: capitalizeWord(productData.name),
-      price: parseInt(productData.price),
-      stock: parseInt(productData.stock),
-      description: productData.description,
-      image_url: productData.imageUrl,
-      category_id: productData.categoryId,
-    },
-  });
+  async insertProduct(productData) {
+    const product = await prisma.product.create({
+      data: {
+        name: capitalizeWord(productData.name),
+        price: parseInt(productData.price),
+        stock: parseInt(productData.stock),
+        description: productData.description,
+        image_url: productData.imageUrl,
+        category_id: productData.categoryId,
+      },
+    });
 
-  return product;
-};
+    return product;
+  }
 
-const editProduct = async (productId, productData) => {
-  const product = await prisma.product.update({
-    where: {
-      id: productId,
-    },
-    data: {
-      name: capitalizeWord(productData.name),
-      price: parseInt(productData.price),
-      stock: parseInt(productData.stock),
-      description: productData.description,
-      image_url: productData.imageUrl,
-      category_id: productData.categoryId,
-    },
-  });
+  async editProduct(productId, productData) {
+    const product = await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        name: capitalizeWord(productData.name),
+        price: parseInt(productData.price),
+        stock: parseInt(productData.stock),
+        description: productData.description,
+        image_url: productData.imageUrl,
+        category_id: productData.categoryId,
+      },
+    });
 
-  return product;
-};
+    return product;
+  }
 
-const deleteProduct = async (productId) => {
-  await prisma.product.delete({
-    where: {
-      id: productId,
-    },
-  });
-};
+  async deleteProduct(productId) {
+    await prisma.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+  }
+}
 
-export {
-  findAllProduct,
-  findProductById,
-  insertProduct,
-  editProduct,
-  deleteProduct,
-};
+export default new ProductRepository();

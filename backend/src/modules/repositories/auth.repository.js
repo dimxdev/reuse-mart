@@ -2,75 +2,70 @@ import prisma from "../../db/index.js";
 import bcrypt from "bcrypt";
 import capitalizeWord from "../../utils/capitalizeWord.js";
 
-const findUserByEmail = async (userData) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      email: userData.email,
-    },
-  });
+class AuthRepository {
+  async findUserByEmail(userData) {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userData.email,
+      },
+    });
 
-  return user;
-};
+    return user;
+  }
 
-const findUserById = async (userId) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-  });
+  async findUserById(userId) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
 
-  return user;
-};
+    return user;
+  }
 
-const findAllAdmin = async () => {
-  const admin = await prisma.user.findMany({
-    where: {
-      role: "admin",
-    },
-  });
+  async findAllAdmin() {
+    const admin = await prisma.user.findMany({
+      where: {
+        role: "admin",
+      },
+    });
 
-  return admin;
-};
+    return admin;
+  }
 
-const createCustomer = async (customerData) => {
-  const customer = await prisma.user.create({
-    data: {
-      name: capitalizeWord(customerData.name),
-      email: customerData.email,
-      password: await bcrypt.hash(customerData.password, 10),
-      role: "customer",
-    },
-  });
+  async createCustomer(customerData) {
+    const customer = await prisma.user.create({
+      data: {
+        name: capitalizeWord(customerData.name),
+        email: customerData.email,
+        password: await bcrypt.hash(customerData.password, 10),
+        role: "customer",
+      },
+    });
 
-  return customer;
-};
+    return customer;
+  }
 
-const createAdmin = async (adminData) => {
-  const admin = await prisma.user.create({
-    data: {
-      name: capitalizeWord(adminData.name),
-      email: adminData.email,
-      password: await bcrypt.hash(adminData.password, 10),
-      role: "admin",
-    },
-  });
+  async createAdmin(adminData) {
+    const admin = await prisma.user.create({
+      data: {
+        name: capitalizeWord(adminData.name),
+        email: adminData.email,
+        password: await bcrypt.hash(adminData.password, 10),
+        role: "admin",
+      },
+    });
 
-  return admin;
-};
+    return admin;
+  }
 
-const deleteAdmin = async (adminId) => {
-  await prisma.user.delete({
-    where: {
-      id: adminId,
-    },
-  });
-};
+  async deleteAdmin(adminId) {
+    await prisma.user.delete({
+      where: {
+        id: adminId,
+      },
+    });
+  }
+}
 
-export {
-  createCustomer,
-  findUserByEmail,
-  createAdmin,
-  deleteAdmin,
-  findUserById,
-  findAllAdmin,
-};
+export default new AuthRepository();
