@@ -7,7 +7,7 @@ const insertOrder = async (userId, orderData, totalAmount) => {
       total_amount: totalAmount,
       address: orderData.address,
       phone: orderData.phone,
-      penerima: orderData.penerima
+      penerima: orderData.penerima,
     },
   });
 
@@ -84,6 +84,42 @@ const editOrderStatus = async (orderId, orderData) => {
   return order;
 };
 
+const findAllOrderDikemas = async () => {
+  const order = await prisma.order.findMany({
+    where: {
+      status: "dikemas",
+    },
+    include: {
+      order_items: {
+        include: {
+          product: true,
+        },
+      },
+      user: true,
+    },
+  });
+
+  return order;
+};
+
+const findAllOrderDikirim = async () => {
+  const order = await prisma.order.findMany({
+    where: {
+      status: "dikirim",
+    },
+    include: {
+      order_items: {
+        include: {
+          product: true,
+        },
+      },
+      user: true,
+    },
+  });
+
+  return order;
+};
+
 export {
   insertOrder,
   insertOrderItem,
@@ -91,4 +127,6 @@ export {
   findOrderByUserId,
   findAllOrder,
   editOrderStatus,
+  findAllOrderDikemas,
+  findAllOrderDikirim,
 };

@@ -3,7 +3,13 @@ import capitalizeWord from "../../utils/capitalizeWord.js";
 
 class ProductRepository {
   async findAllProduct() {
-    const product = await prisma.product.findMany();
+    const product = await prisma.product.findMany({
+      include: {
+        category: true,
+        order_items: true,
+        carts: true
+      }
+    });
 
     return product;
   }

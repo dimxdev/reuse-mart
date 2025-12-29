@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import axiosInstance from "../lib/axios"; 
+import axiosInstance from "../lib/axios";
+import { useWindow } from "../context/WindowContext";
 
 function useAddProduct() {
-  const navigate = useNavigate();
   const [addProductLoading, setAddProductLoading] = useState(false);
   const [addProductError, setAddProductError] = useState("");
+  const { handleRefreshWindow, handleCloseHiddenComponent } = useWindow();
 
   const handleAddProduct = async (values) => {
     try {
@@ -22,7 +22,8 @@ function useAddProduct() {
       });
 
       setAddProductLoading(false);
-      navigate("/product");
+      handleCloseHiddenComponent()
+      handleRefreshWindow();
     } catch (error) {
       setAddProductError(error.response.data.error);
     } finally {
@@ -30,7 +31,9 @@ function useAddProduct() {
     }
   };
   return {
-    addProductError, addProductLoading, handleAddProduct
+    addProductError,
+    addProductLoading,
+    handleAddProduct,
   };
 }
 

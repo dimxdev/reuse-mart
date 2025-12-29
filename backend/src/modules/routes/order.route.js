@@ -6,11 +6,15 @@ import {
   editOrderStatusByIdController,
   getAllOrderByUserIdController,
   getAllOrderController,
+  getAllOrderDikemasController,
+  getAllOrderDikirimController,
   getOrderByIdController,
 } from "../controllers/order.controller.js";
 
 const router = express.Router();
 
+router.get("/dikirim", getAllOrderDikirimController);
+router.get("/dikemas", getAllOrderDikemasController);
 router.post(
   "/",
   authMiddleware,
@@ -25,8 +29,8 @@ router.get(
 );
 router.get(
   "/",
-  authMiddleware,
-  authorizeRoleMiddleware("admin", "owner"),
+  // authMiddleware,
+  // authorizeRoleMiddleware("admin", "owner"),
   getAllOrderController
 );
 router.get(
@@ -38,7 +42,7 @@ router.get(
 router.patch(
   "/status/:orderId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner"),
+  authorizeRoleMiddleware("admin", "owner", "customer"),
   editOrderStatusByIdController
 );
 

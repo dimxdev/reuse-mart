@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate } from "react-router";
 import images from "../assets/assets";
 import { useEffect } from "react";
@@ -24,7 +25,6 @@ function ProductPage() {
     };
 
     getProduct();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

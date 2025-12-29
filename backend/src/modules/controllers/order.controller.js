@@ -2,6 +2,8 @@ import {
   createOrderService,
   editOrderStatusByIdService,
   getAllOrderByUserIdService,
+  getAllOrderDikemasService,
+  getAllOrderDikirimService,
   getAllOrderService,
   getOrderByIdService,
 } from "../services/order.service.js";
@@ -87,10 +89,36 @@ const editOrderStatusByIdController = async (req, res) => {
   }
 };
 
+const getAllOrderDikemasController = async (req, res) => {
+  try {
+    const order = await getAllOrderDikemasService();
+
+    res.status(200).send(order);
+  } catch (error) {
+    res.status(400).send({
+      error: error.message,
+    });
+  }
+};
+
+const getAllOrderDikirimController = async (req, res) => {
+  try {
+    const order = await getAllOrderDikirimService();
+
+    res.status(200).send(order);
+  } catch (error) {
+    res.status(400).send({
+      error: error.message,
+    });
+  }
+};
+
 export {
   createOrderController,
   getAllOrderByUserIdController,
   getAllOrderController,
   getOrderByIdController,
   editOrderStatusByIdController,
+  getAllOrderDikemasController,
+  getAllOrderDikirimController,
 };

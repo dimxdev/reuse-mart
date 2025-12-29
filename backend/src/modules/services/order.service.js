@@ -5,6 +5,8 @@ import {
 import {
   editOrderStatus,
   findAllOrder,
+  findAllOrderDikemas,
+  findAllOrderDikirim,
   findOrderById,
   findOrderByUserId,
   insertOrder,
@@ -74,10 +76,24 @@ const editOrderStatusByIdService = async (orderId, orderData) => {
   return order;
 };
 
+const getAllOrderDikemasService = async () => {
+  const order = await findAllOrderDikemas();
+
+  return order;
+};
+
+const getAllOrderDikirimService = async () => {
+  const order = await findAllOrderDikirim();
+
+  return order;
+};
+
 export {
   createOrderService,
   getAllOrderByUserIdService,
   getAllOrderService,
   getOrderByIdService,
   editOrderStatusByIdService,
+  getAllOrderDikemasService,
+  getAllOrderDikirimService
 };

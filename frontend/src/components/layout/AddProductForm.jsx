@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Check, ChevronDown } from "lucide-react";
 import * as Select from "@radix-ui/react-select";
 import { useForm } from "react-hook-form";
@@ -5,10 +6,12 @@ import { useEffect } from "react";
 import Loading from "../atom/Loading";
 import useGetCategory from "../../api/useGetCategory";
 import useAddProduct from "../../api/useAddProduct";
+import { useWindow } from "../../context/WindowContext";
 
 function AddProductForm() {
   const form = useForm();
   const { categories, handleGetCategory, setCategories } = useGetCategory();
+  const { handleCloseHiddenComponent } = useWindow();
   const { addProductError, addProductLoading, handleAddProduct } =
     useAddProduct();
 
@@ -19,7 +22,6 @@ function AddProductForm() {
     };
 
     GetCategory();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -125,10 +127,17 @@ function AddProductForm() {
             </h1>
           </label>
           <div className="flex gap-2 justify-end mt-3">
-            <button type="button" className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
+            <button
+              type="button"
+              onClick={handleCloseHiddenComponent}
+              className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950"
+            >
               Batal
             </button>
-            <button type="submit" className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">
+            <button
+              type="submit"
+              className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950"
+            >
               Tambah Produk
             </button>
           </div>

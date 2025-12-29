@@ -24,6 +24,22 @@ class DashboardRepository {
       },
     });
   }
+
+  async countOrderDikemas() {
+    return prisma.order.count({
+      where: {
+        status: "dikemas",
+      },
+    });
+  }
+
+  async countOrderDikirim() {
+    return prisma.order.count({
+      where: {
+        status: "dikirim",
+      },
+    });
+  }
 }
 
 export default new DashboardRepository();

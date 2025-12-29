@@ -5,12 +5,12 @@ function useGetCategoryById() {
   const [getCategoryByIdLoading, setGetCategoryByIdLoading] = useState(false);
   const [getCategoryByIdError, setGetCategoryByIdError] = useState("");
 
-  const handleGetCategoryById = async () => {
+  const handleGetCategoryById = async (categoryId) => {
     try {
       setGetCategoryByIdLoading(true);
       setGetCategoryByIdError("");
 
-      const result = await axiosInstance.get("/category/2");
+      const result = await axiosInstance.get(`/category/${categoryId}`);
 
       setGetCategoryByIdLoading(false);
       return result.data;

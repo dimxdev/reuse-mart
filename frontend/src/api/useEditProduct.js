@@ -1,14 +1,16 @@
 import { useState } from "react";
 import axiosInstance from "../lib/axios";
+import { useWindow } from "../context/WindowContext";
 
 function useEditProduct() {
   const [editProductError, setEditProductError] = useState("");
   const [editProductLoading, setEditProductLoading] = useState(false);
+  const { handleRefreshWindow } = useWindow();
 
-  const handleEditProduct = async (values, id) => {
+  const handleEditProduct = async (values, id, close) => {
     try {
       setEditProductLoading(true);
-      setEditProductError(false);
+      setEditProductError("");
 
       await axiosInstance.patch(`/product/${id}`, {
         name: values.namaProduk,
@@ -20,7 +22,8 @@ function useEditProduct() {
       });
 
       setEditProductLoading(false);
-      window.location.href = "/product";
+      close();
+      handleRefreshWindow();
     } catch (error) {
       setEditProductError(error.response.data.error);
     } finally {

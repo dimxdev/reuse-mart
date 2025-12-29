@@ -22,7 +22,7 @@ router.patch(
 router.delete(
   "/:productId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner"),
+  authorizeRoleMiddleware("admin", "owner", "customer"),
   productController.deleteProductByIdController
 );
 

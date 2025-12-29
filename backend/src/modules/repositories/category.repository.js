@@ -3,7 +3,11 @@ import capitalizeWord from "../../utils/capitalizeWord.js";
 
 class CategoryRepository {
   async findAllCategory() {
-    const category = await prisma.category.findMany();
+    const category = await prisma.category.findMany({
+      include: {
+        products: true,
+      },
+    });
 
     return category;
   }

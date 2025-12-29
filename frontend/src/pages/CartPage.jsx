@@ -187,7 +187,7 @@ function CartPage() {
           <div>
             <div className="mb-6">
               <label className="block text-gray-800 font-semibold mb-2">
-                Nama Lengkap
+                Nama Penerima
               </label>
               <input
                 type="text"

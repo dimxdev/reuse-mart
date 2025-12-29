@@ -20,6 +20,7 @@ import AddAdminForm from "./components/layout/AddAdminForm";
 import ScrollToTop from "./components/atom/ScrollToTop";
 import ForbiddenPage from "./pages/ForbiddenPage";
 import CartPage from "./pages/CartPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 
 function App() {
   const location = useLocation();
@@ -90,6 +91,7 @@ function App() {
         />
         <Route path="/cart" element={<CartPage />} />
 
+        <Route path="/dashboard/admin" element={<AdminDashboardPage />} />
         <Route path="/addproduct" element={<AddProductForm />} />
         <Route path="/editproduct" element={<EditProductForm />} />
         <Route path="/addcategory" element={<AddCategoryForm />} />

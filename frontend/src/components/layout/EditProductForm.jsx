@@ -8,9 +8,9 @@ import useGetCategory from "../../api/useGetCategory";
 import useGetProductById from "../../api/useGetProductById";
 import useEditProduct from "../../api/useEditProduct";
 
-function EditProductForm() {
+function EditProductForm({ close, productId }) {
   const form = useForm();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const { categories, handleGetCategory, setCategories } = useGetCategory();
   const { handleGetProductById } = useGetProductById();
   const { editProductError, editProductLoading, handleEditProduct } =
@@ -23,7 +23,7 @@ function EditProductForm() {
     };
 
     const getProductById = async () => {
-      const product = await handleGetProductById(9);
+      const product = await handleGetProductById(productId);
       setProduct(product);
     };
 
@@ -40,7 +40,7 @@ function EditProductForm() {
   }, []);
 
   useEffect(() => {
-    if (product.id) {
+    if (product?.id) {
       form.setValue("namaProduk", product.name);
       form.setValue("harga", product.price);
       form.setValue("stock", product.stock);
@@ -49,6 +49,7 @@ function EditProductForm() {
       form.setValue("deskripsi", product.description);
     }
   }, [product]);
+  console.log(product)
 
   return (
     <div className="w-full h-full min-h-screen bg-black/50 flex justify-center items-center fixed inset-0 z-10">
@@ -58,7 +59,7 @@ function EditProductForm() {
         </h1>
         <form
           onSubmit={form.handleSubmit((values) =>
-            handleEditProduct(values, product.id)
+            handleEditProduct(values, productId, close)
           )}
         >
           <label className="pembungkus-label-input mt-5 text-tema-900">
@@ -151,6 +152,7 @@ function EditProductForm() {
           <div className="flex gap-2 justify-end mt-3">
             <button
               type="button"
+              onClick={close}
               className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950"
             >
               Batal
@@ -159,7 +161,7 @@ function EditProductForm() {
               type="submit"
               className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950"
             >
-              Add Produk
+              Edit Produk
             </button>
           </div>
         </form>

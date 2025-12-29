@@ -2,9 +2,11 @@ import { useForm } from "react-hook-form";
 import Loading from "../atom/Loading";
 import useAddCategory from "../../api/useAddCategory";
 import { useEffect } from "react";
+import { useWindow } from "../../context/WindowContext";
 
 function AddCategoryForm() {
   const form = useForm();
+  const { handleCloseHiddenComponent } = useWindow();
   const { addCategoryError, addCategoryLoading, handleAddCategory } =
     useAddCategory();
 
@@ -46,7 +48,7 @@ function AddCategoryForm() {
             </h1>
           </label>
           <div className="flex gap-2 justify-end mt-3">
-            <button type="button" className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
+            <button onClick={handleCloseHiddenComponent} type="button" className=" bg-white rounded-xl mt-4 px-4 py-2 hover:bg-tema-400 transition-all cursor-pointer text-tema-950">
               Batal
             </button>
             <button type="submit" className=" bg-tema-400 rounded-xl mt-4 px-3 py-2 hover:bg-tema-600 transition-all cursor-pointer text-tema-950">

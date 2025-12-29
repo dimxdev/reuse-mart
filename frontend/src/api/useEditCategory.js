@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axiosInstance from "../lib/axios";
+import { useWindow } from "../context/WindowContext";
 
 function useEditCategory() {
   const [editCategoryLoading, setEditCategoryLoading] = useState(false);
   const [editCategoryError, setEditCategoryError] = useState("");
+  const { handleRefreshWindow } = useWindow();
 
-  const handleEditCategory = async (values, id) => {
+  const handleEditCategory = async (values, id, close) => {
     try {
       setEditCategoryLoading(true);
       setEditCategoryError("");
@@ -16,6 +18,8 @@ function useEditCategory() {
       });
 
       setEditCategoryLoading(false);
+      close()
+      handleRefreshWindow();
     } catch (error) {
       setEditCategoryError(error.response.data.error);
     } finally {
@@ -25,7 +29,7 @@ function useEditCategory() {
   return {
     editCategoryLoading,
     editCategoryError,
-    handleEditCategory
+    handleEditCategory,
   };
 }
 
