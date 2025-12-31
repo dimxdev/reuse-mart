@@ -6,18 +6,19 @@ import authorizeRoleMiddleware from "../../middlewares/role.middleware.js";
 const router = express.Router();
 
 router.get("/admin", authController.getAllAdminController);
-router.post("/register/customer", authController.registerCustomerController);
 router.post("/login", authController.loginUserController);
+router.post("/register/customer", authController.registerCustomerController);
+router.post("/register/owner673245", authController.registerOwnerController);
 router.post(
   "/register/admin",
   authMiddleware,
-  authorizeRoleMiddleware("owner", "customer"),
-  authController.registeradminController
+  authorizeRoleMiddleware("owner"),
+  authController.registerAdminController
 );
 router.delete(
   "/delete/admin/:adminId",
   authMiddleware,
-  authorizeRoleMiddleware("owner", "customer"),
+  authorizeRoleMiddleware("owner"),
   authController.deleteAdminByIdController
 );
 

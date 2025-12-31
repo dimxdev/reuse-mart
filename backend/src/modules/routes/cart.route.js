@@ -1,45 +1,39 @@
 import express from "express";
-import {
-  createCartController,
-  deleteAllCartByUserIdController,
-  deleteCartByIdController,
-  editCartByIdController,
-  getUserCartController,
-} from "../controllers/cart.controller.js";
+import cartController from "../controllers/cart.controller.js";
 import authMiddleware from "../../middlewares/auth.middleware.js";
 import authorizeRoleMiddleware from "../../middlewares/role.middleware.js";
 
 const router = express.Router();
- 
+
 router.get(
   "/",
   authMiddleware,
-  authorizeRoleMiddleware("customer"), 
-  getUserCartController
+  authorizeRoleMiddleware("customer"),
+  cartController.getUserCartController
 );
 router.post(
   "/",
   authMiddleware,
   authorizeRoleMiddleware("customer"),
-  createCartController
+  cartController.createCartController
 );
 router.patch(
   "/:cartId",
   authMiddleware,
   authorizeRoleMiddleware("customer"),
-  editCartByIdController
+  cartController.editCartByIdController
 );
 router.delete(
   "/:cartId",
   authMiddleware,
   authorizeRoleMiddleware("customer"),
-  deleteCartByIdController
+  cartController.deleteCartByIdController
 );
 router.delete(
   "/",
   authMiddleware,
   authorizeRoleMiddleware("customer"),
-  deleteAllCartByUserIdController
+  cartController.deleteAllCartByUserIdController
 );
 
 export default router;

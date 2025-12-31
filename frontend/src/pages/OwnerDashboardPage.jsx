@@ -1,14 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DollarSign, TrendingUp, ShoppingBag, Users } from "lucide-react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 import formatRupiah from "../utils/rupiahFormat";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
@@ -19,6 +9,22 @@ import useDeleteAdmin from "../api/useDeleteAdmin";
 import useGetDashboardSummary from "../api/useGetDashboardSummary";
 import { useWindow } from "../context/WindowContext";
 import exportPDF from "../utils/exportPDF";
+import {
+  DollarSign,
+  TrendingUp,
+  ShoppingBag,
+  Users,
+  ShoppingCart,
+} from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const monthlyRevenueData = [
   { month: "Jan", revenue: 2500000 },
@@ -59,7 +65,6 @@ function OwnerDashboardPage() {
 
   return (
     <div className="min-h-screen pt-25 p-8">
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">
           Owner Dashboard
@@ -67,9 +72,7 @@ function OwnerDashboardPage() {
         <p className="text-gray-600">Selamat datang boss {auth.user?.name}</p>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {/* Total Revenue */}
         <div className="bg-white rounded-lg p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-tema-100 rounded-lg flex items-center justify-center">
@@ -84,10 +87,9 @@ function OwnerDashboardPage() {
           <p className="text-tema-600 text-sm">+20.3% dari bulan lalu</p>
         </div>
 
-        {/* Total Orders */}
         <div className="bg-white rounded-lg p-6 shadow-sm">
-          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-            <ShoppingBag className="w-6 h-6 text-blue-600" />
+          <div className="w-12 h-12 bg-tema-100 rounded-lg flex items-center justify-center mb-4">
+            <ShoppingCart className="w-6 h-6 text-tema-600" />
           </div>
           <p className="text-gray-600 text-sm mb-1">Total Orders</p>
           <h3 className="text-2xl font-bold text-gray-800 mb-2">
@@ -96,7 +98,6 @@ function OwnerDashboardPage() {
           <p className="text-gray-500 text-sm">Semua pesanan</p>
         </div>
 
-        {/* Average Order */}
         <div className="bg-white rounded-lg p-6 shadow-sm">
           <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
             <ShoppingBag className="w-6 h-6 text-blue-600" />
@@ -108,7 +109,6 @@ function OwnerDashboardPage() {
           <p className="text-gray-500 text-sm">Semua product</p>
         </div>
 
-        {/* Active Users */}
         <div className="bg-white rounded-lg p-6 shadow-sm">
           <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
             <Users className="w-6 h-6 text-purple-600" />
@@ -121,7 +121,6 @@ function OwnerDashboardPage() {
         </div>
       </div>
 
-      {/* Monthly Revenue Chart */}
       <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           Monthly Revenue
@@ -159,7 +158,6 @@ function OwnerDashboardPage() {
         </ResponsiveContainer>
       </div>
 
-      {/* Admin Management */}
       <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Admin Management</h2>
@@ -207,7 +205,6 @@ function OwnerDashboardPage() {
         {showHiddenComponent && <AddAdminForm />}
       </div>
 
-      {/* Export Report */}
       <div className="bg-white rounded-lg p-6 shadow-sm">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Export Report</h2>
         <p className="text-gray-600 mb-6">

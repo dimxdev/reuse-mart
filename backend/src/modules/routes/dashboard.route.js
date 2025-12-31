@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.get(
   "/summary",
-//   authMiddleware,
-//   authorizeRoleMiddleware("admin", "owner"),
+  authMiddleware,
+  authorizeRoleMiddleware("admin", "owner"),
   dashboardController.getDashboardSummaryController
 );
 

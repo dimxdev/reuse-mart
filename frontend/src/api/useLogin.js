@@ -28,7 +28,7 @@ function useLogin() {
       login(token, user)
 
       if (user.role === "customer") {
-        navigate("/dashboard/customer");
+        navigate("/product");
       } else if (user.role === "admin") {
         navigate("/dashboard/admin");
       } else {

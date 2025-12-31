@@ -1,4 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import images from "../assets/assets";
 import { useEffect } from "react";
@@ -6,9 +7,11 @@ import Loading from "../components/atom/Loading";
 import formatRupiah from "../utils/rupiahFormat";
 import useGetProduct from "../api/useGetProduct";
 import useAddCart from "../api/useAddCart";
+import { useAuth } from "../context/AuthContext";
 
 function ProductPage() {
   const navigate = useNavigate();
+  const { auth } = useAuth();
   const { handleAddCart } = useAddCart();
   const {
     getProductError,
@@ -25,22 +28,33 @@ function ProductPage() {
     };
 
     getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="w-full h-full min-h-screen flex flex-col">
       {/* 1 */}
-      <div className="text-center mt-25">
+      <motion.div
+        className="text-center mt-25"
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
         <div className="font-playfair-display text-4xl font-bold text-tema-500">
           Katalog Produk
         </div>
         <div className="mt-2 text-tema-700">
           Temukan barang bekas berkualitas pilihan Anda dengan harga terbaik
         </div>
-      </div>
+      </motion.div>
 
       {/* 2 */}
-      <div className="w-full mb-20 mt-8 px-5 2xl:px-32 2xl:gap-4 flex flex-wrap gap-2">
+      <motion.div
+        className="w-full mb-20 mt-6 px-5 2xl:px-32 2xl:gap-4 flex flex-wrap gap-2"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2 }}
+      >
         {productData.map((product) => (
           <div
             key={product.id}
@@ -68,6 +82,7 @@ function ProductPage() {
               </div>
               <div className="mt-5">
                 <button
+                  disabled={auth.user?.role === "admin" || auth.user?.role === "owner"}
                   onClick={() => handleAddCart(product.id)}
                   className="w-full bg-tema-400 py-2 rounded-md hover:bg-tema-600 hover:font-bold transition-all cursor-pointer"
                 >
@@ -79,7 +94,7 @@ function ProductPage() {
         ))}
         {getProductLoading && <Loading />}
         <div className="pl-1 text-sm text-red-500">{getProductError}</div>
-      </div>
+      </motion.div>
     </div>
   );
 }

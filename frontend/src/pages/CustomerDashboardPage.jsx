@@ -81,14 +81,12 @@ function CustomerDashboardPage() {
             <div className="flex-1 h-1 bg-linear-to-r from-tema-300 to-transparent rounded-full ml-2"></div>
           </div>
 
-          {/* Orders Grid */}
           <div className="grid gap-6">
             {myOrder.map((order, index) => (
               <div
                 key={order.id}
                 className="bg-white rounded-t-xl shadow-lg overflow-hidden "
               >
-                {/* Order Header */}
                 <div className="bg-linear-to-r from-tema-500 to-tema-600 px-6 py-4 flex justify-between items-center">
                   <div className="flex items-center gap-3">
                     <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
@@ -114,7 +112,6 @@ function CustomerDashboardPage() {
                   </span>
                 </div>
 
-                {/* Order Body */}
                 <div className="p-6">
                   <div className="grid grid-cols-3 gap-4 mb-6">
                     {/* Penerima */}
@@ -128,7 +125,6 @@ function CustomerDashboardPage() {
                       </p>
                     </div>
 
-                    {/* Alamat */}
                     <div className="bg-tema-50 rounded-xl p-4 border border-tema-200">
                       <div className="flex items-center gap-2 mb-2">
                         <MapPin className="w-5 h-5 text-tema-600" />
@@ -154,7 +150,6 @@ function CustomerDashboardPage() {
                     </div>
                   </div>
 
-                  {/* Products */}
                   <div className="mb-6">
                     <h4 className="font-bold text-tema-900 mb-3 text-lg">
                       Produk Pesanan
@@ -181,7 +176,6 @@ function CustomerDashboardPage() {
                     </div>
                   </div>
 
-                  {/* Payment Summary */}
                   <div className="border-t-2 border-tema-200 pt-4">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2 text-tema-700">
@@ -206,7 +200,6 @@ function CustomerDashboardPage() {
             ))}
           </div>
 
-          {/* Empty State */}
           {myOrder.length === 0 && !getMyOrderLoading && (
             <div className="text-center py-16 bg-white rounded-2xl shadow-lg">
               <Package className="w-20 h-20 text-tema-300 mx-auto mb-4" />
@@ -220,7 +213,6 @@ function CustomerDashboardPage() {
           )}
         </div>
 
-        {/* Loading and Error States */}
         {getMyOrderLoading && <Loading />}
         {getMyOrderError && (
           <div className="mt-4 bg-red-50 border border-red-200 rounded-xl px-6 py-4 flex items-center gap-3">

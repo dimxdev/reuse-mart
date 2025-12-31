@@ -59,6 +59,19 @@ class AuthRepository {
     return admin;
   }
 
+  async createOwner(ownerData) {
+    const owner = await prisma.user.create({
+      data: {
+        name: capitalizeWord(ownerData.name),
+        email: ownerData.email,
+        password: await bcrypt.hash(ownerData.password, 10),
+        role: "owner",
+      },
+    });
+
+    return owner;
+  }
+
   async deleteAdmin(adminId) {
     await prisma.user.delete({
       where: {

@@ -4,28 +4,16 @@ import useGetCategory from "../../api/useGetCategory";
 import { useWindow } from "../../context/WindowContext";
 import AddCategoryForm from "./AddCategoryForm";
 import { SquarePen, Trash } from "lucide-react";
-import axiosInstance from "../../lib/axios";
 import EditCategoryForm from "./EditCategoryForm";
+import useDeleteCategory from "../../api/useDeleteCategory";
 
 function AdminDashboardCategory() {
   const { categories, handleGetCategory, setCategories } = useGetCategory();
-  const {
-    refreshWindow,
-    handleRefreshWindow,
-    showHiddenComponent,
-    handleShowHiddenComponent,
-  } = useWindow();
   const [showEditCategoryForm, setShowEditCategoryForm] = useState(false);
   const [selectCategoryId, setSelectCategoryId] = useState();
-
-  const handleDeleteCategory = async (categoryId) => {
-    try {
-      await axiosInstance.delete(`/category/${categoryId}`);
-      handleRefreshWindow();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { handleDeleteCategory } = useDeleteCategory();
+  const { refreshWindow, showHiddenComponent, handleShowHiddenComponent } =
+    useWindow();
 
   useEffect(() => {
     const GetCategory = async () => {

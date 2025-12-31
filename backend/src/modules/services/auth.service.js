@@ -36,6 +36,21 @@ class AuthService {
     return admin;
   }
 
+  async registerOwnerService(ownerData) {
+    if (!ownerData.name || !ownerData.email || !ownerData.password) {
+      throw new Error("Data yang dimasukkan tidak lengkap Bos!");
+    }
+
+    const userByEmail = await authRepository.findUserByEmail(ownerData);
+    if (userByEmail) {
+      throw new Error("email sudah terdaftar!");
+    }
+
+    const owner = await authRepository.createOwner(ownerData);
+
+    return owner;
+  }
+
   async loginUserService(userData) {
     const user = await authRepository.findUserByEmail(userData);
     if (!user) {

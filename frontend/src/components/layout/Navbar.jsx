@@ -21,6 +21,12 @@ function Navbar() {
       <div className="flex gap-3 mr-3 text-tema-950 items-center">
         <div
           className="hover:font-bold hover:underline cursor-pointer transition-all"
+          onClick={() => navigate("/")}
+        >
+          Home
+        </div>
+        <div
+          className="hover:font-bold hover:underline cursor-pointer transition-all"
           onClick={() => navigate("/product")}
         >
           Product
@@ -36,17 +42,21 @@ function Navbar() {
       <div className="mr-2">
         {auth.isAuthenticated ? (
           <div className="flex items-center gap-3">
-            <div
-              className="hover:bg-black/20 px-2 py-2 rounded-full hover:scale-105 transition-all cursor-pointer relative"
-              onClick={() => navigate("/cart")}
-            >
-              <ShoppingCart className="w-6 h-6" />
-              {false && (
-                <div className="absolute -top-2 -right-2 bg-tema-300 px-3 py-1 rounded-full text-xs animate-pulse text-tema-950 font-bold transition-all duration-100">
-                  !
-                </div>
-              )}
-            </div>
+            {auth.user.role === "customer" ? (
+              <div
+                className="hover:bg-black/20 px-2 py-2 rounded-full hover:scale-105 transition-all cursor-pointer relative"
+                onClick={() => navigate("/cart")}
+              >
+                <ShoppingCart className="w-6 h-6" />
+                {false && (
+                  <div className="absolute -top-2 -right-2 bg-tema-300 px-3 py-1 rounded-full text-xs animate-pulse text-tema-950 font-bold transition-all duration-100">
+                    !
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div></div>
+            )}
 
             <DropDownMenu.Root>
               <DropDownMenu.Trigger>
@@ -57,7 +67,7 @@ function Navbar() {
 
               <DropDownMenu.Portal>
                 <DropDownMenu.Content
-                  className="relative z-10 bg-white px-2 py-2 mr-5 rounded-md shadow-xl border border-black/20 text-tema-950 w-45"
+                  className="animate-scale-in relative z-10 bg-white/70 px-2 py-2 mr-5 rounded-md shadow-xl border border-black/10 text-tema-950 w-45"
                   sideOffset={10}
                 >
                   <div className="hover:outline-none px-2 text-xl font-bold">
@@ -65,7 +75,7 @@ function Navbar() {
                   </div>
 
                   <div className="hover:outline-none text-tema-600 px-2 text-xs">
-                    {auth.user.email} 
+                    {auth.user.email}
                   </div>
 
                   <DropDownMenu.Separator className="m-[5px] h-px bg-black" />

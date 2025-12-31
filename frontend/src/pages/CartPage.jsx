@@ -1,104 +1,30 @@
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trash2, Minus, Plus } from "lucide-react";
 import formatRupiah from "../utils/rupiahFormat";
-import axiosInstance from "../lib/axios";
 import images from "../assets/assets";
 import { useWindow } from "../context/WindowContext";
 import DeleteCartAlert from "../components/layout/DeleteCartAlert";
 import QRCodePopup from "../components/layout/QRCode";
-import useAddOrder from "../api/useAddOrder";
+import useDeleteCart from "../api/useDeleteCart";
+import useCart from "../hooks/useCart";
 
 function CartPage() {
-  const [cartItems, setCartItems] = useState([]);
-  const [showQR, setShowQr] = useState(false);
-  const { handleAddOrder } = useAddOrder();
-  const {
-    refreshWindow,
-    handleRefreshWindow,
-    showHiddenComponent,
-    handleShowHiddenComponent,
-  } = useWindow();
   const form = useForm();
-
-  const handleGetCart = async () => {
-    try {
-      const result = await axiosInstance.get("/cart");
-
-      return result.data.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleEditCart = async (cartId, newQuantity) => {
-    try {
-      await axiosInstance.patch(`/cart/${cartId}`, {
-        quantity: newQuantity,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleDeleteCart = async (cartId) => {
-    try {
-      await axiosInstance.delete(`cart/${cartId}`);
-      handleRefreshWindow();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleQuantityChange = async (cartId, change) => {
-    const item = cartItems.find((i) => i.id === cartId);
-    const newQuantity = Math.max(1, item.quantity + change);
-
-    try {
-      await handleEditCart(cartId, newQuantity);
-
-      setCartItems((prev) =>
-        prev.map((item) =>
-          item.id === cartId ? { ...item, quantity: newQuantity } : item
-        )
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const calculateSubtotal = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.product.price * item.quantity,
-      0
-    );
-  };
-
-  const handleSubmit = () => {
-    setShowQr(true);
-  };
-
-  const handleOrder = async () => {
-    const formData = form.getValues();
-
-    await handleAddOrder(formData);
-    setShowQr(false);
-    handleRefreshWindow();
-  };
-
-  useEffect(() => {
-    const getCart = async () => {
-      const cartItems = await handleGetCart();
-      setCartItems(cartItems);
-    };
-
-    getCart();
-  }, [refreshWindow]);
+  const { handleDeleteCart } = useDeleteCart();
+  const { showHiddenComponent, handleShowHiddenComponent } = useWindow();
+  const {
+    calculateSubtotal,
+    cartItems,
+    handleOrder,
+    handleQuantityChange,
+    handleSubmit,
+    setShowQr,
+    showQR,
+  } = useCart();
 
   return (
     <div className="min-h-screen py-8 pt-25 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Cart Items Section */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-6">
             Keranjang Belanja
@@ -111,14 +37,12 @@ function CartPage() {
                 className="bg-tema-100 rounded-lg p-6 shadow-sm"
               >
                 <div className="flex items-center gap-6">
-                  {/* Product Image */}
                   <img
                     src={item.product.image_url || images.homepageBg2}
                     alt={item.product.name}
                     className="w-24 h-24 object-cover rounded-lg"
                   />
 
-                  {/* Product Info */}
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">
                       {item.name}
@@ -128,7 +52,6 @@ function CartPage() {
                     </p>
                   </div>
 
-                  {/* Quantity Controls */}
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => handleQuantityChange(item.id, -1)}
@@ -147,14 +70,12 @@ function CartPage() {
                     </button>
                   </div>
 
-                  {/* Total Price */}
                   <div className="text-right w-40">
                     <p className="text-xl font-bold text-gray-800">
                       Rp {formatRupiah(item.product.price * item.quantity)}
                     </p>
                   </div>
 
-                  {/* Delete Button */}
                   <button
                     onClick={() => handleDeleteCart(item.id)}
                     className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
@@ -178,7 +99,6 @@ function CartPage() {
           {showHiddenComponent && <DeleteCartAlert />}
         </div>
 
-        {/* Checkout Form Section */}
         <div className="bg-white rounded-lg p-8 shadow-sm">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">
             Informasi Pengiriman
@@ -221,7 +141,6 @@ function CartPage() {
               />
             </div>
 
-            {/* Metode Pembayaran */}
             <div className="mb-8">
               <label className="block text-gray-800 font-semibold mb-3">
                 Metode Pembayaran
@@ -231,7 +150,6 @@ function CartPage() {
               </div>
             </div>
 
-            {/* Summary */}
             <div className="border-t pt-6 mb-6">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-lg text-gray-600">Subtotal:</span>
@@ -247,7 +165,6 @@ function CartPage() {
               </div>
             </div>
 
-            {/* Checkout Button */}
             <button
               type="button"
               onClick={form.handleSubmit(handleSubmit)}
@@ -257,7 +174,7 @@ function CartPage() {
             </button>
             {showQR && cartItems.length !== 0 && (
               <QRCodePopup
-                onConfirm={handleOrder}
+                onConfirm={() => handleOrder(form.getValues())}
                 closeQr={() => setShowQr(false)}
               />
             )}

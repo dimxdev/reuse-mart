@@ -27,7 +27,6 @@ function AdminDashboardPage() {
 
   return (
     <div className="min-h-screen p-8 py-25">
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">
           Admin Dashboard
@@ -35,7 +34,6 @@ function AdminDashboardPage() {
         <p className="text-gray-600">Selamat datang {auth.user?.name}</p>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
           <div className="w-12 h-12 bg-tema-100 rounded-lg flex items-center justify-center mb-4">
@@ -78,7 +76,6 @@ function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Tabs */}
       <Tabs.Root
         defaultValue="pesanan"
         className="bg-white rounded-lg shadow-sm"

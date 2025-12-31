@@ -17,7 +17,7 @@ class AuthController {
     }
   }
 
-  async registeradminController(req, res) {
+  async registerAdminController(req, res) {
     try {
       const adminData = req.body;
       const admin = await authService.registerAdminService(adminData);
@@ -25,6 +25,22 @@ class AuthController {
       res.status(201).send({
         message: "register berhasil",
         data: admin,
+      });
+    } catch (error) {
+      res.status(400).send({
+        error: error.message,
+      });
+    }
+  }
+
+  async registerOwnerController(req, res) {
+    try {
+      const ownerData = req.body;
+      const owner = await authService.registerOwnerService(ownerData);
+
+      res.status(201).send({
+        message: "register berhasil",
+        data: owner,
       });
     } catch (error) {
       res.status(400).send({

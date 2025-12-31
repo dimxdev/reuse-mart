@@ -1,49 +1,51 @@
 import express from "express";
 import authMiddleware from "../../middlewares/auth.middleware.js";
 import authorizeRoleMiddleware from "../../middlewares/role.middleware.js";
-import {
-  createOrderController,
-  editOrderStatusByIdController,
-  getAllOrderByUserIdController,
-  getAllOrderController,
-  getAllOrderDikemasController,
-  getAllOrderDikirimController,
-  getOrderByIdController,
-} from "../controllers/order.controller.js";
+import orderController from "../controllers/order.controller.js";
 
 const router = express.Router();
 
-router.get("/dikirim", getAllOrderDikirimController);
-router.get("/dikemas", getAllOrderDikemasController);
+router.get(
+  "/dikirim",
+  authMiddleware,
+  authorizeRoleMiddleware("admin"),
+  orderController.getAllOrderDikirimController
+);
+router.get(
+  "/dikemas",
+  authMiddleware,
+  authorizeRoleMiddleware("admin"),
+  orderController.getAllOrderDikemasController
+);
 router.post(
   "/",
   authMiddleware,
   authorizeRoleMiddleware("customer"),
-  createOrderController
+  orderController.createOrderController
 );
 router.get(
   "/my-order",
   authMiddleware,
   authorizeRoleMiddleware("customer"),
-  getAllOrderByUserIdController
+  orderController.getAllOrderByUserIdController
 );
 router.get(
   "/",
-  // authMiddleware,
-  // authorizeRoleMiddleware("admin", "owner"),
-  getAllOrderController
+  authMiddleware,
+  authorizeRoleMiddleware("admin", "owner"),
+  orderController.getAllOrderController
 );
 router.get(
   "/:orderId",
   authMiddleware,
   authorizeRoleMiddleware("customer", "admin", "owner"),
-  getOrderByIdController
+  orderController.getOrderByIdController
 );
 router.patch(
   "/status/:orderId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner", "customer"),
-  editOrderStatusByIdController
+  authorizeRoleMiddleware("admin"),
+  orderController.editOrderStatusByIdController
 );
 
 export default router;

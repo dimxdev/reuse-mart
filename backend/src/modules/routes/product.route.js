@@ -10,19 +10,19 @@ router.get("/:productId", productController.getProductByIdController);
 router.post(
   "/",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner", "customer"),
+  authorizeRoleMiddleware("admin"),
   productController.createProductController
 );
 router.patch(
   "/:productId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner", "customer"),
+  authorizeRoleMiddleware("admin"),
   productController.editProductByIdController
 );
 router.delete(
   "/:productId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner", "customer"),
+  authorizeRoleMiddleware("admin"),
   productController.deleteProductByIdController
 );
 

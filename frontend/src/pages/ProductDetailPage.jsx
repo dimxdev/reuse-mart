@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import UseBack from "../hooks/UseBack";
 import images from "../assets/assets";
@@ -8,8 +10,10 @@ import Loading from "../components/atom/Loading";
 import formatRupiah from "../utils/rupiahFormat";
 import useGetProductById from "../api/useGetProductById";
 import useAddCart from "../api/useAddCart";
+import { useAuth } from "../context/AuthContext";
 
 function ProductDetailPage() {
+  const { auth } = useAuth();
   const { handleBack } = UseBack();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -33,18 +37,28 @@ function ProductDetailPage() {
 
   return (
     <div className="w-full h-full min-h-screen flex flex-col px-10">
-      <div className="mt-25">
+      <motion.div
+        className="mt-25"
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
         <button
           onClick={handleBack}
           className="hover:bg-tema-500 bg-tema-100 shadow-lg hover:shadow-xl hover:text-white px-3 py-2 rounded-lg cursor-pointer flex gap-2 text-sm items-center transition-all group"
         >
           <ArrowLeft className="group-hover:text-white w-5 h-5" /> Kembali
         </button>
-      </div>
+      </motion.div>
       {getProductByIdLoading && <Loading />}
       <div className="pl-1 text-sm text-red-500">{getProductByIdError}</div>
 
-      <div className="mt-8 mb-20 flex gap-5">
+      <motion.div
+        className="mt-8 mb-20 flex gap-5"
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
         <div className="">
           <img
             src={product.image_url || images.homepageBg2}
@@ -90,13 +104,14 @@ function ProductDetailPage() {
             </div>
           </div>
           <button
+            disabled={auth.user?.role === "admin" || auth.user?.role === "owner"}
             onClick={() => handleAddCart(parseInt(id))}
             className="w-full mt-6 text-lg bg-tema-400 py-3 rounded-md cursor-pointer hover:font-bold hover:bg-tema-500 transition-all duration-300"
           >
             Tambah Ke Keranjang
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

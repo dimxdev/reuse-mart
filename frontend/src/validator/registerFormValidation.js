@@ -4,7 +4,7 @@ const registerFormSchema = z.object({
   username: z
     .string({ message: "format harus string" })
     .min(3, { message: "username minimal 3 karakter" })
-    .max(10, { message: "username maximal 10 karakter" }),
+    .max(15, { message: "username maximal 10 karakter" }),
   email: z
     .string()
     .min(1, { message: "email tidak boleh kosong" })

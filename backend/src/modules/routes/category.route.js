@@ -10,19 +10,19 @@ router.get("/:categoryId", categoryController.getCategoryByIdController);
 router.post(
   "/",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner", "customer"),
+  authorizeRoleMiddleware("admin"),
   categoryController.createCategoryController
 );
 router.patch(
   "/:categoryId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner", "customer"),
+  authorizeRoleMiddleware("admin"),
   categoryController.editCategoryByIdController
 );
 router.delete(
   "/:categoryId",
   authMiddleware,
-  authorizeRoleMiddleware("admin", "owner", "customer"),
+  authorizeRoleMiddleware("admin"),
   categoryController.deleteCategoryByIdController
 );
 

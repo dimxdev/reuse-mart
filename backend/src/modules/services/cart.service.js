@@ -1,72 +1,58 @@
-import {
-  deleteAllCart,
-  deleteCart,
-  editCart,
-  findAllCartByUserId,
-  findCartById,
-  findCartByUserIdAndProductId,
-  insertCart,
-} from "../repositories/cart.repository.js";
+import cartRepository from "../repositories/cart.repository.js";
 
-const getCartById = async (cartId) => { 
-  const cart = await findCartById(cartId); 
-  if (!cart) {
-    throw new Error("cart tidak tersedia");
-  } 
+class CartService {
+  async getCartById(cartId) {
+    const cart = await cartRepository.findCartById(cartId);
+    if (!cart) {
+      throw new Error("cart tidak tersedia");
+    }
 
-  return cart;
-};
-
-const createCartService = async (cartData, userId) => {
-  const cartByUserIdAndProductId = await findCartByUserIdAndProductId(
-    cartData,
-    userId
-  );
-  if (cartByUserIdAndProductId) {
-    throw new Error("product sudah ada di dalam cart!");
+    return cart;
   }
 
-  const dataValidation = !cartData.productId;
-  if (dataValidation) {
-    throw new Error("data yang dimasukkan tidak lengkap!");
-  } 
+  async createCartService(cartData, userId) {
+    const cartByUserIdAndProductId =
+      await cartRepository.findCartByUserIdAndProductId(cartData, userId);
+    if (cartByUserIdAndProductId) {
+      throw new Error("product sudah ada di dalam cart!");
+    }
 
-  const cart = await insertCart(cartData, userId);
+    const dataValidation = !cartData.productId;
+    if (dataValidation) {
+      throw new Error("data yang dimasukkan tidak lengkap!");
+    }
 
-  return cart;
-};
+    const cart = await cartRepository.insertCart(cartData, userId);
 
-const getUserCartService = async (userId) => {
-  const cart = await findAllCartByUserId(userId);
-
-  return cart;
-};
-
-const editCartByIdService = async (cartId, cartData) => {
-  await getCartById(cartId);
-
-  if (cartData.quantity === undefined) {
-    throw new Error("quantity harus diisi!");
+    return cart;
   }
 
-  const cart = await editCart(cartId, cartData);
+  async getUserCartService(userId) {
+    const cart = await cartRepository.findAllCartByUserId(userId);
 
-  return cart;
-};
+    return cart;
+  }
 
-const deleteCartByIdService = async (cartId) => {
-  await getCartById(cartId);
-  await deleteCart(cartId);
-};
+  async editCartByIdService(cartId, cartData) {
+    await this.getCartById(cartId);
 
-const deleteAllCartByUserIdService = async (userId) => {
-  await deleteAllCart(userId);
-};
+    if (cartData.quantity === undefined) {
+      throw new Error("quantity harus diisi!");
+    }
 
-export {
-  createCartService,
-  getUserCartService,
-  editCartByIdService,
-  deleteCartByIdService,
-  deleteAllCartByUserIdService,
-};
+    const cart = await cartRepository.editCart(cartId, cartData);
+
+    return cart;
+  }
+
+  async deleteCartByIdService(cartId) {
+    await this.getCartById(cartId);
+    await cartRepository.deleteCart(cartId);
+  }
+
+  async deleteAllCartByUserIdService(userId) {
+    await cartRepository.deleteAllCart(userId);
+  }
+}
+
+export default new CartService();

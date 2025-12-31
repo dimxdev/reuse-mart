@@ -10,7 +10,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./components/layout/Footer";
 import ProductPage from "./pages/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import About from "./pages/About";
 import CustomerDashboardPage from "./pages/CustomerDashboardPage";
 import OwnerDashboardPage from "./pages/OwnerDashboardPage";
 import EditProductForm from "./components/layout/EditProductForm";
@@ -21,12 +20,13 @@ import ScrollToTop from "./components/atom/ScrollToTop";
 import ForbiddenPage from "./pages/ForbiddenPage";
 import CartPage from "./pages/CartPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   const location = useLocation();
   const { auth } = useAuth();
 
-  const noLayoutRoute = ["/login", "/register", "/editproduct"];
+  const noLayoutRoute = ["/login", "/register"];
   const renderLayout = !noLayoutRoute.includes(location.pathname);
 
   return (
@@ -35,11 +35,12 @@ function App() {
       {renderLayout && <Navbar />}
 
       <Routes>
+        {/* UMUM */}
         <Route path="/" element={<HomePage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route
           path="/login"
           element={
@@ -81,6 +82,7 @@ function App() {
           }
         />
 
+        {/* CUSTOMER */}
         <Route
           path="/dashboard/customer"
           element={
@@ -89,25 +91,34 @@ function App() {
             </RoleProtectedRoute>
           }
         />
-        <Route path="/cart" element={<CartPage />} />
+        <Route
+          path="/cart"
+          element={
+            <RoleProtectedRoute roleDapetIzin={["customer"]}>
+              <CartPage />
+            </RoleProtectedRoute>
+          }
+        />
 
-        <Route path="/dashboard/admin" element={<AdminDashboardPage />} />
-        <Route path="/addproduct" element={<AddProductForm />} />
-        <Route path="/editproduct" element={<EditProductForm />} />
-        <Route path="/addcategory" element={<AddCategoryForm />} />
-        <Route path="/editcategory" element={<EditCategoryForm />} />
+        {/* ADMIN */}
+        <Route
+          path="/dashboard/admin"
+          element={
+            <RoleProtectedRoute roleDapetIzin={["admin"]}>
+              <AdminDashboardPage />
+            </RoleProtectedRoute>
+          }
+        />
 
-        <Route path="/addadmin" element={<AddAdminForm />} />
-        <Route path="/forbidden" element={<ForbiddenPage />} />
-        <Route path="/dashboard/owner" element={<OwnerDashboardPage />} />
-        {/* <Route
+        {/* OWNER */}
+        <Route
           path="/dashboard/owner"
           element={
             <RoleProtectedRoute roleDapetIzin={["owner"]}>
               <OwnerDashboardPage />
             </RoleProtectedRoute>
           }
-        /> */}
+        />
       </Routes>
 
       {renderLayout && <Footer />}

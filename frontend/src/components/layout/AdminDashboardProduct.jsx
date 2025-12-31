@@ -5,28 +5,16 @@ import { useWindow } from "../../context/WindowContext";
 import formatRupiah from "../../utils/rupiahFormat";
 import AddProductForm from "./AddProductForm";
 import { SquarePen, Trash } from "lucide-react";
-import axiosInstance from "../../lib/axios";
 import EditProductForm from "./EditProductForm";
+import useDeleteProduct from "../../api/useDeleteProduct";
 
 function AdminDashboardProduct() {
-  const {
-    refreshWindow,
-    handleRefreshWindow,
-    showHiddenComponent,
-    handleShowHiddenComponent,
-  } = useWindow();
+  const { refreshWindow, showHiddenComponent, handleShowHiddenComponent } =
+    useWindow();
   const [openEditForm, setOpenEditForm] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const { productData, handleGetProduct, setProductData } = useGetProduct();
-
-  const handleDeleteProduct = async (productId) => {
-    try {
-      await axiosInstance.delete(`/product/${productId}`);
-      handleRefreshWindow();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { handleDeleteProduct } = useDeleteProduct();
 
   useEffect(() => {
     const getProduct = async () => {
