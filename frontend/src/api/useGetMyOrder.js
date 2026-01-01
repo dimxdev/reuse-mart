@@ -18,6 +18,8 @@ function useGetMyOrder() {
       return result.data.data;
     } catch (error) {
       setGetMyOrderError(error.response.data.error);
+    } finally {
+      setGetMyOrderLoading(false)
     }
   };
 

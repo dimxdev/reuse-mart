@@ -1,8 +1,5 @@
 /* eslint-disable no-unused-vars */
-// ========== TAMBAHAN IMPORT DI BARIS PALING ATAS ==========
-import { motion } from "framer-motion"; // <-- BARIS BARU INI
-// ========== AKHIR TAMBAHAN IMPORT ==========
-
+import { motion } from "framer-motion"; 
 import images from "../assets/assets";
 import { HandCoins, Handshake, PackageSearch, Rocket } from "lucide-react";
 import Features from "../components/layout/Features";

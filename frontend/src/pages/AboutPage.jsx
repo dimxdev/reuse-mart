@@ -1,56 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import images from "../assets/assets";
+import useAbout from "../hooks/useAbout";
 
 function AboutPage() {
-  const features = [
-    {
-      title: "Ramah Lingkungan",
-      description:
-        "Memperpanjang siklus hidup produk, mengurangi limbah ke TPA.",
-      icon: "🌍",
-    },
-    {
-      title: "Ekonomi Sirkular",
-      description:
-        "Mendorong pembelian barang bekas berkualitas, menciptakan pasar baru.",
-      icon: "🔄",
-    },
-    {
-      title: "Komunitas",
-      description:
-        "Menghubungkan penjual dan pembeli lokal, membangun hubungan yang kuat.",
-      icon: "👥",
-    },
-  ];
-
-  const teamMembers = [
-    {
-      name: "Dimas Brotowali H",
-      role: "Chief Executive Officer (CEO)",
-      bio: "Visioner di balik Reuse Mart, fokus pada keberlanjutan dan inovasi digital.",
-      imageUrl: images.homepageBg2,
-    },
-    {
-      name: "Haikal Ihza H",
-      role: "Head of Operations",
-      bio: "Memastikan kelancaran transaksi dan pengalaman pengguna yang terbaik.",
-      imageUrl: images.homepageBg2,
-    },
-    {
-      name: "M Fahriza Putra",
-      role: "Lead Developer",
-      bio: "Arsitek teknis yang membangun platform Reuse Mart yang efisien dan cepat.",
-      imageUrl: images.homepageBg2,
-    },
-    {
-      name: "Raka Rizqi R",
-      role: "Web Designer",
-      bio: "Arsitek teknis yang membangun platform Reuse Mart yang efisien dan cepat.",
-      imageUrl: images.homepageBg2,
-    },
-  ];
+  const { teamMembers, features } = useAbout();
 
   return (
     <div className="w-full min-h-screen py-20">
@@ -85,16 +39,16 @@ function AboutPage() {
             hidden: {},
             visible: {
               transition: {
-                staggerChildren: 0.2
-              }
-            }
+                staggerChildren: 0.2,
+              },
+            },
           }}
         >
           <motion.div
             className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-tema-300"
             variants={{
               hidden: { opacity: 0, x: -50 },
-              visible: { opacity: 1, x: 0 }
+              visible: { opacity: 1, x: 0 },
             }}
             transition={{ duration: 1 }}
           >
@@ -113,7 +67,7 @@ function AboutPage() {
             className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-tema-300"
             variants={{
               hidden: { opacity: 0, x: 50 },
-              visible: { opacity: 1, x: 0 }
+              visible: { opacity: 1, x: 0 },
             }}
             transition={{ duration: 1 }}
           >
@@ -156,9 +110,9 @@ function AboutPage() {
               hidden: {},
               visible: {
                 transition: {
-                  staggerChildren: 0.15
-                }
-              }
+                  staggerChildren: 0.15,
+                },
+              },
             }}
           >
             {features.map((feature, index) => (
@@ -167,7 +121,7 @@ function AboutPage() {
                 className="cursor-pointer bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300"
                 variants={{
                   hidden: { opacity: 0, y: 50 },
-                  visible: { opacity: 1, y: 0 }
+                  visible: { opacity: 1, y: 0 },
                 }}
                 whileHover={{ scale: 1.05, y: -5 }}
                 transition={{ duration: 0.8 }}
@@ -180,7 +134,7 @@ function AboutPage() {
                   transition={{
                     duration: 1,
                     repeat: Infinity,
-                    repeatDelay: 1
+                    repeatDelay: 1,
                   }}
                 >
                   {feature.icon}
@@ -201,10 +155,12 @@ function AboutPage() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 1 }}
           >
-            <h2 className="text-3xl font-bold text-tema-700 mb-4">👋 Tim Kami</h2>
+            <h2 className="text-3xl font-bold text-tema-700 mb-4">
+              👋 Tim Kami
+            </h2>
             <p className="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
-              Kami didorong oleh hasrat untuk keberlanjutan. Kenali para pemimpin
-              di balik Reuse Mart.
+              Kami didorong oleh hasrat untuk keberlanjutan. Kenali para
+              pemimpin di balik Reuse Mart.
             </p>
           </motion.div>
 
@@ -217,9 +173,9 @@ function AboutPage() {
               hidden: {},
               visible: {
                 transition: {
-                  staggerChildren: 0.2
-                }
-              }
+                  staggerChildren: 0.2,
+                },
+              },
             }}
           >
             {teamMembers.map((member, index) => (
@@ -228,7 +184,7 @@ function AboutPage() {
                 className="cursor-pointer bg-white py-8 rounded-xl shadow-2xl transition duration-300 hover:shadow-tema-400/50"
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
-                  visible: { opacity: 1, scale: 1 }
+                  visible: { opacity: 1, scale: 1 },
                 }}
                 whileHover={{ y: -10 }}
                 transition={{ duration: 0.8 }}
@@ -268,9 +224,7 @@ function AboutPage() {
             lebih hijau, satu barang bekas pada satu waktu.
           </p>
           <Link to="/product">
-            <button
-              className="cursor-pointer bg-tema-500 hover:scale-105 hover:bg-tema-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300"
-            >
+            <button className="cursor-pointer bg-tema-500 hover:scale-105 hover:bg-tema-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300">
               Beli Sekarang
             </button>
           </Link>
@@ -278,6 +232,6 @@ function AboutPage() {
       </div>
     </div>
   );
-};
+}
 
 export default AboutPage;
