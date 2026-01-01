@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-constant-binary-expression */
 import { useNavigate } from "react-router";
 import * as DropDownMenu from "@radix-ui/react-dropdown-menu";
@@ -6,26 +5,10 @@ import images from "../../assets/assets";
 import { useAuth } from "../../context/AuthContext";
 import { LogOut, ShoppingCart, User } from "lucide-react";
 import capitalizeWord from "../../utils/capitalizeWord";
-import useGetCart from "../../api/useGetCart";
-import { useEffect, useState } from "react";
-import { useWindow } from "../../context/WindowContext";
 
 function Navbar() {
   const { logout, auth } = useAuth();
-  const [cartItems, setCartItems] = useState([]);
-  const { handleGetCart } = useGetCart();
   const navigate = useNavigate();
-  const { refreshWindow } = useWindow();
-
-  useEffect(() => {
-    const getCart = async () => {
-      const cartItems = await handleGetCart();
-      setCartItems(cartItems);
-    };
-
-    getCart();
-  }, [refreshWindow]);
-  console.log(cartItems)
 
   return (
     <div className="pr-4 pl-1 py-2 bg-white/20 fixed z-10 w-full flex items-center backdrop-blur-xs shadow-md justify-between">
@@ -65,9 +48,9 @@ function Navbar() {
                 onClick={() => navigate("/cart")}
               >
                 <ShoppingCart className="w-6 h-6" />
-                {cartItems.length != 0 && (
+                {false && (
                   <div className="absolute -top-2 -right-2 bg-tema-300 px-3 py-1 rounded-full text-xs animate-pulse text-tema-950 font-bold transition-all duration-100">
-                    {cartItems.length}
+                    !
                   </div>
                 )}
               </div>
