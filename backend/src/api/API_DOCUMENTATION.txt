@@ -2,7 +2,7 @@
  1. http://localhost:3000/auth/register/customer (POST, semua bisa akses, register customer)
  2. http://localhost:3000/auth/register/admin (POST, [owner] role, register admin)
  3. http://localhost:3000/auth/register/owner673245 (POST, register owner)
- 4. http://localhost:3000/auth/login (login) (POST, semua bisa akses, login)
+ 4. http://localhost:3000/auth/login (login) (POST, semua bisa akses, login)        
  5. http://localhost:3000/auth/delete/admin/:adminId (DELETE, [owner] role, menghapus admin berdasarkan id)
  6. http://localhost:3000/auth/admin (GET, [owner] role, mengambil semua data admin)
 
