@@ -76,6 +76,8 @@ npm run dev
 - [Haikal](https://github.com/haikalananta25)
 - [Raka](https://github.com/rakaiky)
 - [Fahriza](https://github.com/fahrizaputra16)
+- [M Ihsan Fauzan R](https://github.com/IhsanfauzanR)
+- [Safril Y.M](https://github.com/fril08)
 
 ---
 
