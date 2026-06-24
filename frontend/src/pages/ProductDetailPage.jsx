@@ -36,7 +36,7 @@ function ProductDetailPage() {
   }, [id]);
 
   return (
-    <div className="w-full h-full min-h-screen flex flex-col px-10">
+    <div className="w-full h-full min-h-screen flex flex-col px-4 md:px-10">
       <motion.div
         className="mt-25"
         initial={{ opacity: 0, y: -40 }}
@@ -54,29 +54,29 @@ function ProductDetailPage() {
       <div className="pl-1 text-sm text-red-500">{getProductByIdError}</div>
 
       <motion.div
-        className="mt-8 mb-20 flex gap-5"
+        className="mt-8 mb-20 flex flex-col md:flex-row gap-5"
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <div className="">
+        <div className="w-full md:w-auto">
           <img
             src={product.image_url || images.homepageBg2}
             alt=""
-            className="w-[700px] h-[450px] rounded-sm border border-black/20"
+            className="w-full md:w-[700px] h-64 sm:h-80 md:h-[450px] object-cover rounded-sm border border-black/20"
             onClick={() => navigate(`/product/${product.id}`)}
-          />{" "}
+          />
         </div>
 
-        <div className="w-[500px]">
+        <div className="w-full md:w-[500px]">
           <div>
-            <h1 className="text-4xl font-bold font-playfair-display text-tema-900">
+            <h1 className="text-2xl md:text-4xl font-bold font-playfair-display text-tema-900">
               {product.name}
             </h1>
             <h1 className="mt-2 text-tema-600">{product.category?.name}</h1>
           </div>
           <div className="mt-5">
-            <div className="border-y py-4 text-2xl text-tema-900 font-bold">
+            <div className="border-y py-4 text-xl md:text-2xl text-tema-900 font-bold">
               Rp {formatRupiah(product.price)}
             </div>
             <div className="mt-5">
@@ -104,11 +104,15 @@ function ProductDetailPage() {
             </div>
           </div>
           <button
-            disabled={auth.user?.role === "admin" || auth.user?.role === "owner"}
+            disabled={
+              product.stock < 1 ||
+              auth.user?.role === "admin" ||
+              auth.user?.role === "owner"
+            }
             onClick={() => handleAddCart(parseInt(id))}
-            className="w-full mt-6 text-lg bg-tema-400 py-3 rounded-md cursor-pointer hover:font-bold hover:bg-tema-500 transition-all duration-300"
+            className="w-full mt-6 text-lg bg-tema-400 py-3 rounded-md cursor-pointer hover:font-bold hover:bg-tema-500 transition-all duration-300 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:hover:font-normal"
           >
-            Tambah Ke Keranjang
+            {product.stock < 1 ? "Stok Habis" : "Tambah Ke Keranjang"}
           </button>
         </div>
       </motion.div>

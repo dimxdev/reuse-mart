@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import images from "../assets/assets";
 import { HandCoins, Handshake, PackageSearch, Rocket } from "lucide-react";
 import Features from "../components/layout/Features";
@@ -18,13 +18,13 @@ function HomePage() {
         />
         <div className="absolute w-full h-full bg-linear-to-tr from-white/20 via-white/35 to-white/10"></div>
         <motion.div
-          className="absolute w-full h-full flex items-center justify-center flex-col"
+          className="absolute w-full h-full flex items-center justify-center flex-col px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2 }}
         >
           <motion.h1
-            className="font-bold text-5xl text-tema-950 font-playfair-display text-center"
+            className="font-bold text-3xl sm:text-4xl md:text-5xl text-tema-950 font-playfair-display text-center"
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.5, delay: 0.2 }}
@@ -35,7 +35,7 @@ function HomePage() {
             </span>
           </motion.h1>
           <motion.div
-            className="mt-10 text-2xl text-center text-tema-950"
+            className="mt-6 md:mt-10 text-base sm:text-lg md:text-2xl text-center text-tema-950 px-2"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.5, delay: 0.4 }}
@@ -46,7 +46,7 @@ function HomePage() {
             <h1>berkualitas, dan ramah lingkungan.</h1>
           </motion.div>
           <motion.div
-            className="mt-16 flex gap-5 pr-10"
+            className="mt-10 md:mt-16 flex gap-5"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.5, delay: 0.6 }}
@@ -66,24 +66,24 @@ function HomePage() {
       </div>
 
       {/* 2 */}
-      <div className="py-15 pb-25 flex flex-col justify-center items-center">
+      <div className="py-15 pb-25 flex flex-col justify-center items-center px-4">
         <motion.div
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-3xl font-playfair-display font-bold text-tema-900">
+          <h1 className="text-2xl md:text-3xl font-playfair-display font-bold text-tema-900">
             Kenapa Memilih Kami?
           </h1>
-          <h1 className="mt-4 text-tema-600">
+          <h1 className="mt-4 text-tema-600 text-sm md:text-base">
             Platform terpercaya untuk jual beli barang preloved berkualitas
           </h1>
         </motion.div>
 
         <motion.div
-          className="mt-12 flex gap-8 justify-between w-full px-10"
+          className="mt-12 flex flex-col md:flex-row gap-8 justify-between w-full px-4 md:px-10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -150,18 +150,18 @@ function HomePage() {
       </div>
 
       {/* 3  */}
-      <div className="bg-tema-100 py-25 flex justify-center items-center">
+      <div className="bg-tema-100 py-25 flex justify-center items-center px-4">
         <motion.div
-          className="bg-white/40 flex flex-col justify-center items-center gap-5 px-20 py-10 text-center"
+          className="bg-white/40 flex flex-col justify-center items-center gap-5 px-6 md:px-20 py-10 text-center"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-3xl font-playfair-display font-bold text-tema-900">
+          <h1 className="text-2xl md:text-3xl font-playfair-display font-bold text-tema-900">
             Tentang Kami
           </h1>
-          <div className="text-tema-600">
+          <div className="text-tema-600 text-sm md:text-base">
             <h1>
               Kami adalah platform terpercaya untuk membeli barang bekas
               berkualitas. Dengan
@@ -183,7 +183,7 @@ function HomePage() {
       </div>
 
       {/* 4 */}
-      <div className="py-15 pb-25 flex flex-col justify-center items-center">
+      <div className="py-15 pb-25 flex flex-col justify-center items-center px-4">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -191,16 +191,16 @@ function HomePage() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-3xl font-playfair-display font-bold text-tema-900">
+          <h1 className="text-2xl md:text-3xl font-playfair-display font-bold text-tema-900">
             Apa Kata Mereka?
           </h1>
-          <h1 className="mt-4 text-tema-600">
+          <h1 className="mt-4 text-tema-600 text-sm md:text-base">
             Testimoni dari pelanggan setia kami
           </h1>
         </motion.div>
 
         <motion.div
-          className="mt-10 flex gap-8 justify-between w-full px-10"
+          className="mt-10 flex flex-col md:flex-row gap-8 justify-between w-full px-4 md:px-10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -264,9 +264,9 @@ function HomePage() {
       </div>
 
       {/* 5 - CTA SECTION */}
-      <div className="bg-linear-to-tr from-white/10 via-tema-200 to-white/10 py-20 flex justify-center items-center border-t border-tema-200">
+      <div className="bg-linear-to-tr from-white/10 via-tema-200 to-white/10 py-20 flex justify-center items-center border-t border-tema-200 px-4">
         <motion.div
-          className="bg-white/40 flex flex-col justify-center items-center gap-5 px-20 py-10 text-center"
+          className="bg-white/40 flex flex-col justify-center items-center gap-5 px-6 md:px-20 py-10 text-center w-full max-w-2xl"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -291,16 +291,16 @@ function HomePage() {
             <Rocket className="w-10 h-10 text-white" />
           </motion.div>
 
-          <h1 className="text-3xl font-playfair-display font-bold text-tema-900">
+          <h1 className="text-2xl md:text-3xl font-playfair-display font-bold text-tema-900">
             Siap Mulai Berbelanja?
           </h1>
-          <div className="text-tema-600">
+          <div className="text-tema-600 text-sm md:text-base">
             <h1>
               Temukan barang impian Anda atau mulai jual barang yang sudah tidak
             </h1>
             <h1>terpakai</h1>
           </div>
-          <div className="flex gap-3 pr-3">
+          <div className="flex gap-3">
             <Link to="/product">
               <button className="bg-tema-200 duration-300 px-4 py-2 rounded-md font-bold hover:scale-105 hover:shadow-sm cursor-pointer transition-all hover:text-tema-950">
                 Jelajahi Product

@@ -14,6 +14,7 @@ function AddProductForm() {
   const { handleCloseHiddenComponent } = useWindow();
   const { addProductError, addProductLoading, handleAddProduct } =
     useAddProduct();
+  const imageFile = form.watch("image");
 
   useEffect(() => {
     const GetCategory = async () => {
@@ -105,14 +106,23 @@ function AddProductForm() {
             <label className="pembungkus-label-input mt-5 text-tema-900"></label>
           </div>
           <label className="pembungkus-label-input mt-5 text-tema-900">
-            URL Gambar
+            Gambar Produk
             <input
-              type="text"
-              className="input w-full"
-              placeholder="https://contoh.com/gambar.jpg"
+              type="file"
+              accept="image/*"
+              className="input w-full cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-tema-400 file:px-3 file:py-1 file:cursor-pointer"
               {...form.register("image")}
             />
           </label>
+          {imageFile?.[0] && (
+            <div className="mt-3">
+              <img
+                src={URL.createObjectURL(imageFile[0])}
+                alt="preview"
+                className="w-40 h-40 object-cover rounded-md border border-black/20"
+              />
+            </div>
+          )}
           <label className="pembungkus-label-input mt-5 text-tema-900">
             Deskripsi (opsional)
             <textarea

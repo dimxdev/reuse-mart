@@ -5,6 +5,7 @@ const WindowContext = createContext();
 export function WindowProvider({ children }) {
   const [refreshWindow, setRefreshWindow] = useState(0);
   const [showHiddenComponent, setShowHiddenComponent] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const handleShowHiddenComponent = () => {
     setShowHiddenComponent(true);
@@ -26,6 +27,8 @@ export function WindowProvider({ children }) {
         handleShowHiddenComponent,
         handleCloseHiddenComponent,
         handleRefreshWindow,
+        cartCount,
+        setCartCount,
       }}
     >
       {children}

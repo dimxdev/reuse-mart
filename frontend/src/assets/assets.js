@@ -4,6 +4,10 @@ import dimas from "./dimas.jpeg";
 import fahriza from "./fahriza.jpeg";
 import haikal from "./haikal.jpg";
 import raka from "./raka.jpg";
+import safril from "./safril.jpeg";
+import ibnu from "./ibnu.jpeg";
+import fairuz from "./fairuz.jpeg";
+import ihsan from "./ihsan.jpeg";
 import logo from "./logo.png";
 
 const images = {
@@ -13,7 +17,11 @@ const images = {
   dimas,
   fahriza,
   haikal,
-  raka
+  raka,
+  safril,
+  ibnu,
+  fairuz,
+  ihsan
 };
 
 export default images;

@@ -12,14 +12,18 @@ function useEditProduct() {
       setEditProductLoading(true);
       setEditProductError("");
 
-      await axiosInstance.patch(`/product/${id}`, {
-        name: values.namaProduk,
-        price: values.harga,
-        stock: values.stock,
-        description: values.deskripsi,
-        imageUrl: values.image,
-        categoryId: parseInt(values.category),
-      });
+      const formData = new FormData();
+      formData.append("name", values.namaProduk);
+      formData.append("price", values.harga);
+      formData.append("stock", values.stock);
+      formData.append("description", values.deskripsi ?? "");
+      formData.append("categoryId", values.category);
+      // hanya kirim gambar jika user memilih file baru
+      if (values.image?.[0]) {
+        formData.append("image", values.image[0]);
+      }
+
+      await axiosInstance.patch(`/product/${id}`, formData);
 
       setEditProductLoading(false);
       close();
