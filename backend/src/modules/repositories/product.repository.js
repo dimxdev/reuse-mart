@@ -35,7 +35,7 @@ class ProductRepository {
         stock: parseInt(productData.stock),
         description: productData.description,
         image_url: productData.imageUrl,
-        category_id: productData.categoryId,
+        category_id: parseInt(productData.categoryId),
       },
     });
 
@@ -43,18 +43,24 @@ class ProductRepository {
   }
 
   async editProduct(productId, productData) {
+    const data = {
+      name: capitalizeWord(productData.name),
+      price: parseInt(productData.price),
+      stock: parseInt(productData.stock),
+      description: productData.description,
+      category_id: parseInt(productData.categoryId),
+    };
+
+    // hanya update gambar jika ada file baru yang diupload
+    if (productData.imageUrl) {
+      data.image_url = productData.imageUrl;
+    }
+
     const product = await prisma.product.update({
       where: {
         id: productId,
       },
-      data: {
-        name: capitalizeWord(productData.name),
-        price: parseInt(productData.price),
-        stock: parseInt(productData.stock),
-        description: productData.description,
-        image_url: productData.imageUrl,
-        category_id: productData.categoryId,
-      },
+      data,
     });
 
     return product;
@@ -66,6 +72,21 @@ class ProductRepository {
         id: productId,
       },
     });
+  }
+
+  async decrementStock(productId, quantity) {
+    const product = await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        stock: {
+          decrement: quantity,
+        },
+      },
+    });
+
+    return product;
   }
 }
 

@@ -1,4 +1,5 @@
 import cartRepository from "../repositories/cart.repository.js";
+import productRepository from "../repositories/product.repository.js";
 
 class CartService {
   async getCartById(cartId) {
@@ -11,15 +12,26 @@ class CartService {
   }
 
   async createCartService(cartData, userId) {
+    const dataValidation = !cartData.productId;
+    if (dataValidation) {
+      throw new Error("data yang dimasukkan tidak lengkap!");
+    }
+
+    // pastikan produk ada dan stoknya tidak habis
+    const product = await productRepository.findProductById(
+      parseInt(cartData.productId)
+    );
+    if (!product) {
+      throw new Error("produk tidak ditemukan");
+    }
+    if (product.stock < 1) {
+      throw new Error("stok produk habis!");
+    }
+
     const cartByUserIdAndProductId =
       await cartRepository.findCartByUserIdAndProductId(cartData, userId);
     if (cartByUserIdAndProductId) {
       throw new Error("product sudah ada di dalam cart!");
-    }
-
-    const dataValidation = !cartData.productId;
-    if (dataValidation) {
-      throw new Error("data yang dimasukkan tidak lengkap!");
     }
 
     const cart = await cartRepository.insertCart(cartData, userId);

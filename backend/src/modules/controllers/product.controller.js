@@ -1,5 +1,11 @@
 import productService from "../services/product.service.js";
 
+// bangun URL lengkap ke file yang diupload, mis: http://localhost:3000/uploads/xxx.jpg
+const buildImageUrl = (req) => {
+  if (!req.file) return undefined;
+  return `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+};
+
 class ProductController {
   async getAllProductController(req, res) {
     try {
@@ -27,7 +33,10 @@ class ProductController {
 
   async createProductController(req, res) {
     try {
-      const productData = req.body;
+      const productData = {
+        ...req.body,
+        imageUrl: buildImageUrl(req),
+      };
       const product = await productService.createProductService(productData);
 
       res.status(201).send({
@@ -44,7 +53,10 @@ class ProductController {
   async editProductByIdController(req, res) {
     try {
       const productId = parseInt(req.params.productId);
-      const productData = req.body;
+      const productData = {
+        ...req.body,
+        imageUrl: buildImageUrl(req),
+      };
       const product = await productService.editProductByIdService(
         productId,
         productData

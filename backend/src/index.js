@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 import kelompokRouter from "./modules/routes/kelompok.route.js";
 import productRouter from "./modules/routes/product.route.js"
 import categoryRouter from "./modules/routes/category.route.js"
@@ -15,6 +16,9 @@ const port = process.env.PORT;
 dotenv.config();
 app.use(cors());
 app.use(express.json());
+
+// serve file gambar yang diupload
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use("/kelompok", kelompokRouter);
 app.use("/product", productRouter);
