@@ -70,7 +70,7 @@ npm run dev
 
 ---
 
-## 👨‍💻 Tim Pengembang
+<!-- ## 👨‍💻 Tim Pengembang
 
 - [Dimas Brotowali](https://github.com/dimxdev)
 - [Haikal](https://github.com/haikalananta25)
@@ -79,7 +79,7 @@ npm run dev
 - [M Ihsan Fauzan R](https://github.com/IhsanfauzanR)
 - [Safril Yusuf Maulana](https://github.com/fril08)
 
----
+--- -->
 
 ## 📸 Pratinjau
 
