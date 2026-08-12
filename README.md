@@ -74,6 +74,7 @@ npm run dev
 
 - [Dimas Brotowali](https://github.com/dimxdev)
 - [Haikal](https://github.com/haikalananta25)
+- [M Ihsan Fauzan R](https://github.com/IhsanfauzanR)
 - [Raka](https://github.com/rakaiky)
 - [Fahriza](https://github.com/fahrizaputra16)
 - [M Ihsan Fauzan R](https://github.com/IhsanfauzanR)
